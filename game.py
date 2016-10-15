@@ -10,7 +10,7 @@ class Game:
     """
 
     # These attributes can be used with dot notation, e.g. game.speed == game['speed']
-    ALLOWED_ATTRS = ['id', 'speed', 'moves']
+    ALLOWED_ATTRS = ['id', 'speed']
 
     def __init__(self, game_dict):
         """
@@ -38,6 +38,30 @@ class Game:
     @property
     def createdAt(self):
         return datetime.datetime.fromtimestamp(self['createdAt']/1000)
+
+    @property
+    def moves(self):
+        # test cases:
+        #
+        # cases = [
+        #     {'moves': 'e4'},
+        #     {'moves': 'e4 d5'},
+        #     {'moves': 'e4 d5 exd5'},
+        #     {'moves': 'e4 d5 exd5 Qxd5'},
+        #     {'moves': 'e4 d5 exd5 Qxd5 Nc3'},
+        # ]
+        moves = self['moves'].split(' ')
+
+        result = []
+        for n, i in enumerate(range(0, len(moves), 2), start=1):
+            result.append('{}.'.format(n))
+            result.append(moves[i])
+            try:
+                result.append(moves[i + 1])
+            except IndexError:
+                pass
+
+        return ' '.join(result)
 
     def __getattr__(self, attr):
         """

@@ -118,24 +118,24 @@ class Node:
         return sorted(self.children, key=lambda c: -c.size)
 
     @property
-    def to_move(self):
-        WHITE, BLACK = 'White', 'Black'
-        return BLACK if self.depth % 2 else WHITE
+    def black_to_move(self):
+        return self.depth % 2
 
     def show(self):
-        header = ('{} to move'.format(self.to_move) +
-                  '\n' +
-                  'Depth: {}'.format(self.depth).ljust(11) +
+        header = ('Depth: {}'.format(self.depth).ljust(11) +
                   ' Size: {}'.format(self.size) +
                   '\n')
         print(header)
         for i, child in enumerate(self.sorted_children):
+            move = ('...' if self.black_to_move else '   ') + child.move
             percent = child.size / self.size * 100
-            s = '  ({}) {}\t{}\t{:.1f}%'.format(i, child.move, child.size, percent)
+            s = '  ({}) {}\t{}\t{:.1f}%'.format(i, move, child.size, percent)
             if child.size <= 3:
                 s += '\t   ' + '  '.join(game.id for game in child.games)
             print(s)
             # TODO is that the right formatting for rounding?
+            # TODO need real table formatting. also, moves can be up to
+            #      seven characters long, e.g. exd8=Q+
 
 ################################################################################
 

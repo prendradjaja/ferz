@@ -13,6 +13,7 @@ def make_tree(filename):
 
     for g in games:
         node = root
+        node.add_game(g)
         for move in g.moves:  # TODO should i implement `for move in g`?
             if node.has_child(move):
                 node = node.child(move)
@@ -65,12 +66,7 @@ class Node:
 
     @property
     def size(self):
-        # TODO not exactly correct... try on medium-db
-        # 0d6bd86034fdf80055d9d659af259153229c6620
-        if not self.children:
-            return len(self.games)
-        else:
-            return sum(c.size for c in self.children)
+        return len(self.games)
 
     @property
     def sorted_children(self):
@@ -78,6 +74,7 @@ class Node:
 
     def show(self):
         print('Depth:', self.depth)
+        print('Size:' , self.size)
         print()
         for i, child in enumerate(self.sorted_children):
             percent = child.size / self.size * 100

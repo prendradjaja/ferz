@@ -64,3 +64,4 @@ That tool could be graphical or terminal-based. If terminal-based:
 # To do:
 
 - [ ] Determine if pagination breaks if new games are played. Any possible consequences?
+- [ ] Any bad behavior with 0-move games?

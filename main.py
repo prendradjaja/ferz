@@ -71,7 +71,7 @@ for g in games:
     # speed
     s += '{}. '.format(g.speed).ljust(20)
 
-    # readable time
+    # createdAt
     s += '{}. '.format(readable(g.createdAt))
 
     # moves

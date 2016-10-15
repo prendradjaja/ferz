@@ -27,7 +27,7 @@ def main_loop(root):
             node = root
         elif cmd == '-':
             if node.parent:
-                node.parent
+                node = node.parent
             else:
                 output = 'already at top of tree'
         elif len(cmd) == 1 and cmd in '0123456789':

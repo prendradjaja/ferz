@@ -15,9 +15,11 @@ pip3 install -r requirements.txt
 python3 main.py
 ```
 
-## Goal:
+## Overview:
 
 This tool:
+
+(all of this is todos unless crossed out)
 
 - ~~gets games~~
 - that are:
@@ -43,7 +45,7 @@ That is, it returns a list of games, with the following properties:
 - move_list
 - game_id
 
-To be used in another tool:
+All this stuff is to be consumed by another program, Wazir, which will be able to:
 
 - filter by:
   - recency
@@ -53,24 +55,6 @@ To be used in another tool:
   - number of games
   - responses (with percentages and counts)
   - link to games
-
-The terminal version of this tool should support these commands:
-
-    (algebraic move) = go down
-    (nothing)        = go down to most common move
-    0                = go down to most common move
-    1                = go down to most second common move
-    .                = go up one
-    ...              = go up three
-    /                = go to root
-    h                = toggle human
-    r                = toggle rated
-    3d               = recency filter at 3 days
-    7m
-    2y
-    g                = show games (paginated)
-    n                = next page of games
-    4n
 
 ## Other to-do:
 

@@ -1,8 +1,8 @@
-# Wazir prototype
+# Wazir
 
-Terminal version of Wazir.
+## Features
 
-Features: (all todo)
+All of these are todos unless crossed out.
 
 - filter by:
   - recency
@@ -14,7 +14,7 @@ Features: (all todo)
   - link to games
 - ~~walk up and down a game tree~~
 
-Language:
+## Input language
 
     [X] (algebraic move) = go down
     [X] (nothing)        = go down to most common move
@@ -31,3 +31,7 @@ Language:
     [ ] g                = show games (paginated)
     [ ] n                = next page of games
     [ ] 4n
+
+## Other todos
+
+- Figure out what's wrong with `size`

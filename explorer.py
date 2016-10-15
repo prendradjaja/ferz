@@ -58,6 +58,16 @@ class Node:
     def add_game(self, game):
         self.games.append(game)
 
+    @property
+    def size(self):
+        # TODO not exactly correct... try on medium-db
+        if not self.children:
+            return len(self.games)
+        else:
+            return sum(c.size for c in self.children)
+
+################################################################################
+
 
 # filename = './tiny-db'
 # filename = './small-db'

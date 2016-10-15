@@ -16,7 +16,13 @@ Make sure you've got the venv activated! Then run:
 python3 main.py
 ```
 
-## Features and purpose
+## Purpose
+
+This program bulk-downloads PGNs for a given lichess user. This data is to be
+consumed by another program, Wazir, whose purpose is to explore a player's
+opening tree and games.
+
+## Features
 
 All of these are todos unless crossed out.
 
@@ -25,7 +31,8 @@ All of these are todos unless crossed out.
   - Recent (within the last X days)?
   - Chess games only
 - Games labeled with which color the user was
-- Games labeled with the following for further filtering:
+- Games labeled with the following for further interactive filtering in Wazir:
+  - Date
   - Time control
   - Rated?
   - Human opponent?
@@ -38,14 +45,13 @@ All of these are todos unless crossed out.
 
 That is, it returns a list of games, with the following properties:
 
+- color
+- date
+- time\_control
 - rated
 - human\_opponent
-- recent
 - move\_list
 - game\_id
-
-All this stuff is to be consumed by another program, Wazir, whose purpose is to
-explore a player's opening tree and games.
 
 ## Implementation todos
 

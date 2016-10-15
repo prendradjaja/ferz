@@ -135,7 +135,7 @@ root = make_tree(filename)
 
 if len(sys.argv) == 3:
     if sys.argv[2] == 'debug':
-        print('DEBUG MODE. Should be run with `python3 -i`.')
+        print('DEBUG MODE.')
         print('Inspecting database:', filename)
         print()
 

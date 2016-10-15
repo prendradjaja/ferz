@@ -21,6 +21,8 @@ All of these are todos unless crossed out.
 
 ## Input language
 
+TODO should (nothing) be "repeat last action?"
+
     [X] (algebraic move) = go down
     [X] (nothing)        = go down to most common move
     [X] 0                = go down to most common move

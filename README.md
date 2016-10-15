@@ -19,21 +19,21 @@ python3 main.py
 
 This tool:
 
-- [x] gets games
+- ~~gets games~~
 - that are:
-  - [ ] recent (within the last X days)
-  - [ ] chess games
-- [ ] bucketed into time controls
-- [ ] bucketed into color
+  - recent (within the last X days)
+  - chess games
+- bucketed into time controls
+- bucketed into color
 - labeled with the following for further filtering:
-  - [ ] rated?
-  - [ ] against human opponent?
+  - rated?
+  - against human opponent?
 - and also with these additional properties:
-  - [ ] move list
-  - [ ] game id
-- [ ] Might also want to have some features for figuring out what X ("last X days") should be.
-- [ ] "Download manager" behavior: continue partial download
-- [ ] Dump raw API data
+  - move list
+  - game id
+- Might also want to have some features for figuring out what X ("last X days") should be.
+- "Download manager" behavior: continue partial download
+- Dump raw API data
 
 That is, it returns a list of games, with the following properties:
 
@@ -74,5 +74,5 @@ The terminal version of this tool should support these commands:
 
 ## Other to-do:
 
-- [ ] Determine if pagination breaks if new games are played. Possible consequences?
-- [ ] Any bad behavior with 0-move games?
+- Determine if pagination breaks if new games are played. Possible consequences?
+- Any bad behavior with 0-move games?

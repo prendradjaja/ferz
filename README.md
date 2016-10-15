@@ -3,14 +3,15 @@
 ## Setup
 
 ```
-./make-env.sh &&
-. activate-env &&
+./make-venv.sh &&
+. activate-venv &&
 pip3 install -r requirements.txt
 ```
 
 ## Run
 
 ```
+. activate-venv &&
 python3 main.py
 ```
 

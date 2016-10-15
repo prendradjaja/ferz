@@ -49,9 +49,12 @@ To be used in a future tool, that will:
 That tool could be graphical or terminal-based. If terminal-based:
 
   (algebraic move) = go down
+  (nothing)        = go down to most common move
+  0                = go down to most common move
+  1                = go down to most second common move
   .                = go up one
   ...              = go up three
-  1                = go to root
+  /                = go to root
   h                = toggle human
   r                = toggle rated
   3d               = recency filter at 3 days

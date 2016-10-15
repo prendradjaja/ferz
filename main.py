@@ -40,6 +40,7 @@ def get_games(username):
 username = 'thibault'
 games = get_games(username)
 
+# show everything
 for g in games:
     s = ''
 
@@ -59,3 +60,20 @@ for g in games:
     s += ' --  {} ...'.format(g.moves[:20])
 
     print(s)
+
+# # print for Wazir (need to strip out some labels first)
+# for g in games:
+#     s = ''
+#     # color
+#     s += '{} '.format(g.color(username))
+#     # rated
+#     s += '{} '.format(g.rated)
+#     # variant
+#     s += '{} '.format(g.variant)
+#     # speed
+#     s += '{} '.format(g.speed)
+#     # id
+#     s += '{} '.format(g.id)
+#     # moves
+#     s += g.raw_moves
+#     print(s)

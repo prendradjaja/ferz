@@ -121,7 +121,10 @@ class Node:
         print()
         for i, child in enumerate(self.sorted_children):
             percent = child.size / self.size * 100
-            print('  ({}) {}\t{}\t{:.1f}%'.format(i, child.move, child.size, percent))
+            s = '  ({}) {}\t{}\t{:.1f}%'.format(i, child.move, child.size, percent)
+            if child.size <= 3:
+                s += '\t   ' + '  '.join(game.id for game in child.games)
+            print(s)
             # TODO is that the right formatting for rounding?
 
 ################################################################################

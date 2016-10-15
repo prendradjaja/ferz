@@ -11,3 +11,41 @@ pip3 install -r requirements.txt
 ```
 python3 main.py
 ```
+
+# Goal:
+
+This tool:
+
+- get all recent games that are:
+  - chess games
+- bucketed into time controls
+- bucketed into color
+- labeled with:
+  - rated
+  - against human opponents
+- and with properties:
+  - move list
+  - game id
+
+That is, it will return a list of games, with the following properties:
+
+- rated
+- human_opponent
+- recent
+- move_list
+- game_id
+
+To be used in a future tool, that will:
+
+- filter by:
+  - recency
+  - whether or not the game was rated
+  - whether or not the opponent was human
+- given a game-prefix, show:
+  - number of games
+  - responses (with percentages and counts)
+  - link to games
+
+# To do:
+
+- [ ] Determine if pagination breaks if new games are played. Any possible consequences?

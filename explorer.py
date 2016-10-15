@@ -61,6 +61,7 @@ class Node:
     @property
     def size(self):
         # TODO not exactly correct... try on medium-db
+        # 0d6bd86034fdf80055d9d659af259153229c6620
         if not self.children:
             return len(self.games)
         else:

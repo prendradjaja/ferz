@@ -52,7 +52,7 @@ class Game:
 
     @property
     def moves(self):
-        # test cases:
+        # TODO create unit tests for these test cases:
         #
         # cases = [
         #     {'moves': 'e4'},

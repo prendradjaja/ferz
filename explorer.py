@@ -1,4 +1,5 @@
 import os
+import sys
 
 def make_tree(filename):
     games = []
@@ -88,7 +89,10 @@ class Node:
 
 # filename = './tiny-db'
 # filename = './small-db'
-filename = './medium-db'
+# filename = './medium-db'
+
+assert len(sys.argv) == 2
+filename = sys.argv[1]
 
 root = make_tree(filename)
 node = root

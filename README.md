@@ -41,4 +41,4 @@ TODO should (nothing) be "repeat last action?"
 
 ## Other todos
 
-- Figure out what's wrong with `size`
+- ~~Figure out what's wrong with `size`~~

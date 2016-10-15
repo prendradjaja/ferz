@@ -12,7 +12,7 @@ def make_tree(filename):
 
     for g in games:
         node = root
-        for move in g.moves:  # TODO move in g?
+        for move in g.moves:  # TODO should i implement `for move in g`?
             if node.has_child(move):
                 node = node.child(move)
             else:

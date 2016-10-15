@@ -1,0 +1,5 @@
+# Source this file; don't run it.
+
+. venv/bin/activate
+alias pip='echo Use pip3'
+alias python='echo Use python3'

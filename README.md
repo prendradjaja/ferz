@@ -58,5 +58,6 @@ All this stuff is to be consumed by another program, Wazir, which will be able t
 
 ## Other to-do:
 
+- ~~Pagination~~
 - Determine if pagination breaks if new games are played. Possible consequences?
 - Any bad behavior with 0-move games?

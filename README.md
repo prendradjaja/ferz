@@ -1,5 +1,9 @@
 # Wazir
 
+## Purpose
+
+To make it easy to interactively explore a player's opening tree and games.
+
 ## Features
 
 All of these are todos unless crossed out.
@@ -7,6 +11,7 @@ All of these are todos unless crossed out.
 - ~~Interactively explore a game database by walking up and down the "game tree."~~
   - At any node, show:
     - ~~Responses (with percentages and counts)~~
+    - Which player is to move
     - Links to games
 - Filter by:
   - Recency

@@ -18,6 +18,9 @@ class Game:
         """
         self._game_dict = game_dict
 
+    def is_white(self, username):
+        return self.white == username
+
     @property
     def white(self):
         # TODO: run through Stockfish as white codepath
@@ -62,6 +65,10 @@ class Game:
                 pass
 
         return ' '.join(result)
+
+    @property
+    def raw_moves(self):
+        return self['moves']
 
     def __getattr__(self, attr):
         """

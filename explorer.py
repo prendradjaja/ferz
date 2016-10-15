@@ -150,6 +150,9 @@ if len(sys.argv) == 3:
     else:
         usage()
 elif len(sys.argv) == 2:
+    if filename == 'debug':
+        print('Whoops. You gave me the filename "debug"!')
+        exit(1)
     main_loop(root)
 else:
     assert False, 'Impossible!'

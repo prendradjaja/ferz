@@ -1,6 +1,7 @@
 import requests
 
 from game import Game
+from utils import readable
 
 API_URL = 'https://en.lichess.org/api'
 
@@ -12,10 +13,6 @@ def get_games(username):
 
     j = response.json()
     return j
-
-
-def readable(dt):
-    return dt.strftime('%b %d %Y. %H:%M')
 
 ###############################################################################
 

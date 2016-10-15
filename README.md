@@ -4,15 +4,15 @@
 
 All of these are todos unless crossed out.
 
-- filter by:
-  - recency
-  - whether or not the game was rated
-  - whether or not the opponent was human
-- given a game-prefix, show:
-  - ~~number of games~~
-  - ~~responses (with percentages and counts)~~
-  - link to games
-- ~~walk up and down a game tree~~
+- ~~Interactively explore a game database by walking up and down the "game tree."~~
+  - At any node, show:
+    - ~~Responses (with percentages and counts)~~
+    - Links to games
+- Filter by:
+  - Recency
+  - Whether or not the game was rated
+  - Whether or not the opponent was human
+  - Time control
 
 ## Input language
 

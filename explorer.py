@@ -1,3 +1,5 @@
+import os
+
 def make_tree(filename):
     games = []
     with open(filename) as f:
@@ -5,7 +7,8 @@ def make_tree(filename):
             id, *moves = line.split()
             games.append(Game(id, moves))
 
-    root = Node()
+    root = Node(0)
+    root.parent = root
 
     for g in games:
         node = root
@@ -28,11 +31,12 @@ class Game:
         return '{}: {}'.format(self.id, self.moves)
 
 class Node:
-    def __init__(self, move=None, parent=None):
+    def __init__(self, depth, move=None, parent=None):
         self.move = move
         self.games = []
         self.children = []
         self.parent = parent
+        self.depth = depth
 
     def __str__(self):
         return '<{}>'.format(self.move)
@@ -51,7 +55,7 @@ class Node:
 
     def add_child(self, move):
         assert not self.has_child(move)
-        child = Node(move, self)
+        child = Node(self.depth + 1, move, self)
         self.children.append(child)
         return child
 
@@ -67,6 +71,18 @@ class Node:
         else:
             return sum(c.size for c in self.children)
 
+    @property
+    def sorted_children(self):
+        return sorted(self.children, key=lambda c: -c.size)
+
+    def show(self):
+        print('Depth:', self.depth)
+        print()
+        for i, child in enumerate(self.sorted_children):
+            percent = child.size / self.size * 100
+            print('  ({}) {}\t{}\t{:.1f}%'.format(i, child.move, child.size, percent))
+            # TODO is that the right formatting for rounding?
+
 ################################################################################
 
 
@@ -74,4 +90,35 @@ class Node:
 # filename = './small-db'
 filename = './medium-db'
 
-tree = make_tree(filename)
+root = make_tree(filename)
+node = root
+
+os.system('clear')
+print('\n')
+while True:
+    node.show()
+    cmd = input('\n> ')
+    os.system('clear')
+
+    output = ''
+
+    if cmd == '/':
+        node = root
+    elif cmd == '.':
+        node = node.parent
+    elif len(cmd) == 1 and cmd in '0123456789':
+        try:
+            node = node.sorted_children[int(cmd)]
+        except IndexError:
+            output = 'IndexError'
+    elif cmd == '':
+        if node.children:
+            node = node.sorted_children[0]
+        else:
+            output = 'already reached bottom of tree'
+    elif node.has_child(cmd):
+        node = node.child(cmd)
+    else:
+        output = 'no such child ' + cmd
+
+    print(output + '\n')

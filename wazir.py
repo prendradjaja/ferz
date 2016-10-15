@@ -18,7 +18,11 @@ def main_loop(root):
     print('\n')
     while True:
         node.show()
-        cmd = input('\n> ')
+        try:
+            cmd = input('\n> ')
+        except (EOFError, KeyboardInterrupt):
+            print()
+            exit(1)
         os.system('clear')
 
         output = ''

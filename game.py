@@ -1,5 +1,7 @@
 import datetime
+
 from constants import STOCKFISH
+from utils import readable
 
 class Game:
     """
@@ -18,8 +20,14 @@ class Game:
         """
         self._game_dict = game_dict
 
+    def __str__(self):
+        return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
+
     def is_white(self, username):
         return self.white == username
+
+    def is_black(self, username):
+        return not self.is_white(username)
 
     @property
     def white(self):

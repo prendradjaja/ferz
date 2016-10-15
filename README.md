@@ -1,4 +1,6 @@
-# Setup
+# Ferz
+
+## Setup
 
 ```
 ./make-env.sh &&
@@ -6,13 +8,13 @@
 pip3 install -r requirements.txt
 ```
 
-# Run
+## Run
 
 ```
 python3 main.py
 ```
 
-# Goal:
+## Goal:
 
 This tool:
 
@@ -69,7 +71,7 @@ The terminal version of this tool should support these commands:
     n                = next page of games
     4n
 
-# To do:
+## Other to-do:
 
 - [ ] Determine if pagination breaks if new games are played. Possible consequences?
 - [ ] Any bad behavior with 0-move games?

@@ -1,8 +1,8 @@
 # Setup
 
 ```
-./make-env.sh
-. activate-env
+./make-env.sh &&
+. activate-env &&
 pip3 install -r requirements.txt
 ```
 
@@ -16,18 +16,23 @@ python3 main.py
 
 This tool:
 
-- get all recent games that are:
-  - chess games
-- bucketed into time controls
-- bucketed into color
-- labeled with:
-  - rated
-  - against human opponents
-- and with properties:
-  - move list
-  - game id
+- [x] gets games
+- that are:
+  - [ ] recent (within the last X days)
+  - [ ] chess games
+- [ ] bucketed into time controls
+- [ ] bucketed into color
+- labeled with the following for further filtering:
+  - [ ] rated?
+  - [ ] against human opponent?
+- and also with these additional properties:
+  - [ ] move list
+  - [ ] game id
+- [ ] Might also want to have some features for figuring out what X ("last X days") should be.
+- [ ] "Download manager" behavior: continue partial download
+- [ ] Dump raw API data
 
-That is, it will return a list of games, with the following properties:
+That is, it returns a list of games, with the following properties:
 
 - rated
 - human_opponent
@@ -35,7 +40,7 @@ That is, it will return a list of games, with the following properties:
 - move_list
 - game_id
 
-To be used in a future tool, that will:
+To be used in another tool:
 
 - filter by:
   - recency
@@ -46,25 +51,25 @@ To be used in a future tool, that will:
   - responses (with percentages and counts)
   - link to games
 
-That tool could be graphical or terminal-based. If terminal-based:
+The terminal version of this tool should support these commands:
 
-  (algebraic move) = go down
-  (nothing)        = go down to most common move
-  0                = go down to most common move
-  1                = go down to most second common move
-  .                = go up one
-  ...              = go up three
-  /                = go to root
-  h                = toggle human
-  r                = toggle rated
-  3d               = recency filter at 3 days
-  7m
-  2y
-  g                = show games (paginated)
-  n                = next page of games
-  4n
+    (algebraic move) = go down
+    (nothing)        = go down to most common move
+    0                = go down to most common move
+    1                = go down to most second common move
+    .                = go up one
+    ...              = go up three
+    /                = go to root
+    h                = toggle human
+    r                = toggle rated
+    3d               = recency filter at 3 days
+    7m
+    2y
+    g                = show games (paginated)
+    n                = next page of games
+    4n
 
 # To do:
 
-- [ ] Determine if pagination breaks if new games are played. Any possible consequences?
+- [ ] Determine if pagination breaks if new games are played. Possible consequences?
 - [ ] Any bad behavior with 0-move games?

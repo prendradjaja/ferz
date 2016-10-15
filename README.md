@@ -10,8 +10,9 @@ pip3 install -r requirements.txt
 
 ## Run
 
+Make sure you've got the venv activated! Then run:
+
 ```
-. activate-venv &&
 python3 main.py
 ```
 

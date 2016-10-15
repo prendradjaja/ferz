@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 -i ./explorer.py $1 debug

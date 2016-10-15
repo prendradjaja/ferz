@@ -1,5 +1,48 @@
+"""
+Usage:
+  python3    ./explorer.py DB_PATH
+  python3 -i ./explorer.py DB_PATH debug
+"""
+
 import os
 import sys
+
+def usage():
+    print(__doc__[1:][:-1])
+    exit(1)
+
+def main_loop(root):
+    node = root
+
+    os.system('clear')
+    print('\n')
+    while True:
+        node.show()
+        cmd = input('\n> ')
+        os.system('clear')
+
+        output = ''
+
+        if cmd == '/':
+            node = root
+        elif cmd == '.':
+            node = node.parent
+        elif len(cmd) == 1 and cmd in '0123456789':
+            try:
+                node = node.sorted_children[int(cmd)]
+            except IndexError:
+                output = 'IndexError'
+        elif cmd == '':
+            if node.children:
+                node = node.sorted_children[0]
+            else:
+                output = 'already reached bottom of tree'
+        elif node.has_child(cmd):
+            node = node.child(cmd)
+        else:
+            output = 'no such child ' + cmd
+
+        print(output + '\n')
 
 def make_tree(filename):
     games = []
@@ -84,42 +127,27 @@ class Node:
 ################################################################################
 
 
-# filename = './tiny-db'
-# filename = './small-db'
-# filename = './medium-db'
-
-assert len(sys.argv) == 2
+if len(sys.argv) not in (2, 3):
+    usage()
 filename = sys.argv[1]
 
 root = make_tree(filename)
-node = root
 
-os.system('clear')
-print('\n')
-while True:
-    node.show()
-    cmd = input('\n> ')
-    os.system('clear')
+if len(sys.argv) == 3:
+    if sys.argv[2] == 'debug':
+        print('DEBUG MODE. Should be run with `python3 -i`.')
+        print('Inspecting database:', filename)
+        print()
 
-    output = ''
+        r = root
+        n = node = root
+        n.show()
 
-    if cmd == '/':
-        node = root
-    elif cmd == '.':
-        node = node.parent
-    elif len(cmd) == 1 and cmd in '0123456789':
-        try:
-            node = node.sorted_children[int(cmd)]
-        except IndexError:
-            output = 'IndexError'
-    elif cmd == '':
-        if node.children:
-            node = node.sorted_children[0]
-        else:
-            output = 'already reached bottom of tree'
-    elif node.has_child(cmd):
-        node = node.child(cmd)
+        print('\nAvailable local variables: n (node), r (root)')
     else:
-        output = 'no such child ' + cmd
-
-    print(output + '\n')
+        usage()
+elif len(sys.argv) == 2:
+    main_loop(root)
+else:
+    assert False, 'Impossible!'
+    # Should've already exited if invalid number of arguments.

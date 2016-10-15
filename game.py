@@ -27,7 +27,7 @@ class Game:
         return WHITE if self.is_white(username) else BLACK
 
     def is_white(self, username):
-        return self.white == username
+        return self.white.lower() == username.lower()
 
     def is_black(self, username):
         return not self.is_white(username)

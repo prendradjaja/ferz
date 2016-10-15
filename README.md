@@ -11,8 +11,8 @@ All of these are todos unless crossed out.
 - ~~Interactively explore a game database by walking up and down the "game tree."~~
   - At any node, show:
     - ~~Responses (with percentages and counts)~~
-    - Which player is to move
-    - Links to games
+    - ~~Which player is to move~~
+    - ~~Links to games~~
 - Filter by:
   - Recency
   - Whether or not the game was rated

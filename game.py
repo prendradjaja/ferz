@@ -1,6 +1,6 @@
 import datetime
 
-from constants import STOCKFISH
+from constants import STOCKFISH, WHITE, BLACK
 from utils import readable
 
 class Game:
@@ -12,7 +12,7 @@ class Game:
     """
 
     # These attributes can be used with dot notation, e.g. game.speed == game['speed']
-    ALLOWED_ATTRS = ['id', 'speed']
+    ALLOWED_ATTRS = ['id', 'speed', 'rated', 'variant']
 
     def __init__(self, game_dict):
         """
@@ -22,6 +22,9 @@ class Game:
 
     def __str__(self):
         return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
+
+    def color(self, username):
+        return WHITE if self.is_white(username) else BLACK
 
     def is_white(self, username):
         return self.white == username

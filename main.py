@@ -13,6 +13,7 @@ def get_games(username):
 
     # TODO is it bad to use my own page enumeration despite the API having a 'nextPage'?
     for i in range(1, 1 + NUM_PAGES):
+        # API seems to exclude aborted games
         response = requests.get('{}/api/user/{}/games'.format(LICHESS_URL, username),
                                 params={'with_moves': 1,
                                         'nb': PAGE_SIZE,

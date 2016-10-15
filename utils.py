@@ -1,2 +1,2 @@
 def readable(dt):
-    return dt.strftime('%b %d %Y. %H:%M')
+    return dt.strftime('%b %d %Y at %H:%M')

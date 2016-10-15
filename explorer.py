@@ -25,8 +25,11 @@ def main_loop(root):
 
         if cmd == '/':
             node = root
-        elif cmd == '.':
-            node = node.parent
+        elif cmd == '-':
+            if node.parent:
+                node.parent
+            else:
+                output = 'already at top of tree'
         elif len(cmd) == 1 and cmd in '0123456789':
             try:
                 node = node.sorted_children[int(cmd)]
@@ -36,7 +39,7 @@ def main_loop(root):
             if node.children:
                 node = node.sorted_children[0]
             else:
-                output = 'already reached bottom of tree'
+                output = 'already at bottom of tree'
         elif node.has_child(cmd):
             node = node.child(cmd)
         else:
@@ -52,7 +55,6 @@ def make_tree(filename):
             games.append(Game(id, moves))
 
     root = Node(0)
-    root.parent = root
 
     for g in games:
         node = root
@@ -115,10 +117,18 @@ class Node:
     def sorted_children(self):
         return sorted(self.children, key=lambda c: -c.size)
 
+    @property
+    def to_move(self):
+        WHITE, BLACK = 'White', 'Black'
+        return BLACK if self.depth % 2 else WHITE
+
     def show(self):
-        print('Depth:', self.depth)
-        print('Size:' , self.size)
-        print()
+        header = ('{} to move'.format(self.to_move) +
+                  '\n' +
+                  'Depth: {}'.format(self.depth).ljust(11) +
+                  ' Size: {}'.format(self.size) +
+                  '\n')
+        print(header)
         for i, child in enumerate(self.sorted_children):
             percent = child.size / self.size * 100
             s = '  ({}) {}\t{}\t{:.1f}%'.format(i, child.move, child.size, percent)

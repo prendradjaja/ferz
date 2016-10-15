@@ -27,8 +27,8 @@ TODO should (nothing) be "repeat last action?"
     [X] (nothing)        = go down to most common move
     [X] 0                = go down to most common move
     [X] 1                = go down to most second common move
-    [X] .                = go up one
-    [ ] ...              = go up three
+    [X] -                = go up one
+    [ ] ---              = go up three
     [X] /                = go to root
     [ ] h                = toggle human
     [ ] r                = toggle rated

@@ -4,7 +4,7 @@ import time
 from game import Game
 from utils import readable
 
-API_URL = 'https://en.lichess.org/api'
+LICHESS_URL = 'https://en.lichess.org'
 PAGE_SIZE = 10
 NUM_PAGES = 1
 
@@ -13,7 +13,7 @@ def get_games(username):
 
     # TODO is it bad to use my own page enumeration despite the API having a 'nextPage'?
     for i in range(1, 1 + NUM_PAGES):
-        response = requests.get('{}/user/{}/games'.format(API_URL, username),
+        response = requests.get('{}/api/user/{}/games'.format(LICHESS_URL, username),
                                 params={'with_moves': 1,
                                         'nb': PAGE_SIZE,
                                         'page': i})

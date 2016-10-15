@@ -1,7 +1,7 @@
 """
 Usage:
-  python3    ./explorer.py DB_PATH
-  python3 -i ./explorer.py DB_PATH debug
+  python3    ./wazir.py DB_PATH
+  python3 -i ./wazir.py DB_PATH debug
 """
 
 import os

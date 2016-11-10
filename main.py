@@ -1,12 +1,14 @@
+from datetime import datetime
 import requests
 import time
-
-from game import Game
-from utils import readable
+import json
 
 LICHESS_URL = 'https://en.lichess.org'
-PAGE_SIZE = 10
-NUM_PAGES = 1
+PAGE_SIZE = 2
+NUM_PAGES = 2
+
+def readable_date(unix_time_ms):
+    return datetime.fromtimestamp(unix_time_ms/1000).strftime('%b %d %Y at %H:%M')
 
 def get_games(username):
     games = []
@@ -20,12 +22,12 @@ def get_games(username):
                                         'page': i})
         assert response.status_code == 200, 'Response code was {}'.format(response.status_code)
 
-        page = [Game(g) for g in response.json()['currentPageResults']]
+        page = [g for g in response.json()['currentPageResults']]
         games.extend(page)
         print('Got {n} games from {latest} to {earliest}'
                 .format(n = len(page),
-                        latest = readable(page[0].createdAt),
-                        earliest = readable(page[-1].createdAt)))
+                        latest = readable_date(page[0]['createdAt']),
+                        earliest = readable_date(page[-1]['createdAt'])))
 
         if i != NUM_PAGES:
             time.sleep(1)
@@ -40,40 +42,4 @@ def get_games(username):
 username = 'thibault'
 games = get_games(username)
 
-# show everything
-for g in games:
-    s = ''
-
-    # id
-    s += '{}. '.format(g.id)
-
-    # username
-    s += '{} vs {}. '.format(g.white, g.black).ljust(35)
-
-    # speed
-    s += '{}. '.format(g.speed).ljust(20)
-
-    # createdAt
-    s += '{}. '.format(readable(g.createdAt))
-
-    # moves
-    s += ' --  {} ...'.format(g.moves[:20])
-
-    print(s)
-
-# # print for Wazir (need to strip out some labels first)
-# for g in games:
-#     s = ''
-#     # color
-#     s += '{} '.format(g.color(username))
-#     # rated
-#     s += '{} '.format(g.rated)
-#     # variant
-#     s += '{} '.format(g.variant)
-#     # speed
-#     s += '{} '.format(g.speed)
-#     # id
-#     s += '{} '.format(g.id)
-#     # moves
-#     s += g.raw_moves
-#     print(s)
+print(json.dumps(games))

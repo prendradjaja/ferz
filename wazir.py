@@ -4,6 +4,8 @@ Usage:
   python3 -i ./wazir.py DB_PATH debug
 """
 
+from game import Game
+import json
 import os
 import sys
 
@@ -52,11 +54,14 @@ def main_loop(root):
         print(output + '\n')
 
 def make_tree(filename):
-    games = []
     with open(filename) as f:
-        for line in f:
-            id, *moves = line.split()
-            games.append(Game(id, moves))
+        games = [Game(g) for g in json.load(f)]
+
+    # TODO filtering
+    games = [g for g in games if
+            g.is_white('prendradjaja') and
+            g.variant == 'standard' and
+            g.rated]
 
     root = Node(0)
 
@@ -71,15 +76,6 @@ def make_tree(filename):
             node.add_game(g)
 
     return root
-
-# TODO: reconcile this with the other Game class
-class Game:
-    def __init__(self, id, moves):
-        self.id = id
-        self.moves = moves
-
-    def __str__(self):
-        return '{}: {}'.format(self.id, self.moves)
 
 class Node:
     def __init__(self, depth, move=None, parent=None):

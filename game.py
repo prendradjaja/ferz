@@ -20,8 +20,12 @@ class Game:
         """
         self._game_dict = game_dict
 
-    def __str__(self):
-        return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
+    # def __str__(self):
+    #     # return '{}: {}'.format(self.id, self.moves)
+    #     return '{}: {}'.format(self.id, self.moves[:20] + '..?')
+
+    # def __str__(self):
+    #     return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
 
     def color(self, username):
         return WHITE if self.is_white(username) else BLACK
@@ -55,31 +59,7 @@ class Game:
 
     @property
     def moves(self):
-        # TODO create unit tests for these test cases:
-        #
-        # cases = [
-        #     {'moves': 'e4'},
-        #     {'moves': 'e4 d5'},
-        #     {'moves': 'e4 d5 exd5'},
-        #     {'moves': 'e4 d5 exd5 Qxd5'},
-        #     {'moves': 'e4 d5 exd5 Qxd5 Nc3'},
-        # ]
-        moves = self['moves'].split(' ')
-
-        result = []
-        for n, i in enumerate(range(0, len(moves), 2), start=1):
-            result.append('{}.'.format(n))
-            result.append(moves[i])
-            try:
-                result.append(moves[i + 1])
-            except IndexError:
-                pass
-
-        return ' '.join(result)
-
-    @property
-    def raw_moves(self):
-        return self['moves']
+        return self['moves'].split()
 
     def __getattr__(self, attr):
         """

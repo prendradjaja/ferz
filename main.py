@@ -6,7 +6,7 @@ import json
 
 
 LICHESS_URL = 'https://en.lichess.org'
-PAGE_SIZE = 2
+PAGE_SIZE = 100
 
 
 def main(username, num_pages, output_path):

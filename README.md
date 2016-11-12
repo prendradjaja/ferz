@@ -32,14 +32,7 @@ python3 wazir.py prendradjaja.json
 
     x Bulk-download PGNs for a given user
     _ Download in human-readable format
-    _ Filter by:
-      x Date
-      x Chess games only
-        _ Configurable
-      _ Time control
-      _ Rated?
-      _ Human opponent?
-    _ Games labeled with which color the user was
+
     _ Might also want to have some features for figuring out what X ("last X days") should be.
       _ Activity graph? (Histogram of games by date)
 
@@ -49,6 +42,16 @@ python3 wazir.py prendradjaja.json
         x Responses (with percentages and counts)
         x Which player is to move
         x Links to games
+
+    _ Filter by:
+      x Date
+      x Chess games only
+        _ Configurable
+      x Color
+        _ Configurable
+      _ Time control
+      _ Rated?
+      _ Human opponent?
 
 ## Implementation todos
 

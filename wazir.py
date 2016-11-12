@@ -18,6 +18,7 @@ def main(filename):
     root = make_tree(filename)
     main_loop(root)
 
+
 def main_loop(root):
     node = root
 
@@ -61,18 +62,18 @@ def main_loop(root):
 
 def load_games(filename):
     with open(filename) as f:
-        return [Game(g) for g in json.load(f)]
+        games = [Game(g) for g in json.load(f)]
 
+    # TODO maybe take some of this filtering out
 
-def make_tree(filename):
-    all_games = load_games(filename)
-    games = all_games
-
-    # TODO filtering
-    games = [g for g in games if
+    return [g for g in games if
             g.is_white('prendradjaja') and
             g.variant == 'standard' and
             g.rated]
+
+
+def make_tree(filename):
+    games = load_games(filename)
 
     root = Node(0)
 

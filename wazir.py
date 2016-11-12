@@ -13,13 +13,62 @@ def usage():
     print(__doc__[1:][:-1])
     exit(1)
 
-def main_loop(root):
-    node = root
+
+def main(filename):
+    all_games = load_games(filename)
+    main_loop(all_games)
+
+
+class Filter:
+    def apply(self, games):
+        raise Exception('not implemented')
+
+
+def update_tree(all_games, filters, path):
+    """
+    Filter games, return:
+        (node_or_none, num_games)
+
+    A path is a list of moves e.g. ['e4', 'e5']
+    """
+    games = all_games
+    for f in filters:
+        games = f.apply(games)
+    num_games = len(games)
+
+    root = make_tree(games)
+    node_or_none = find_node(root, path)
+    return (node_or_none, num_games)
+
+
+def find_node(node, path):
+    """
+    Returns node or none
+    """
+    for move in path:
+        if not node.has_child(move):
+            return None
+        node = node.child(move)
+    return node
+
+
+def show(node):
+    # TODO it's silly to have this and node.show()...
+    if node:
+        node.show()
+    else:
+        print('nothing')
+
+
+def main_loop(all_games):
+    filters = []
+    path = []
 
     os.system('clear')
     print('\n')
     while True:
-        node.show()
+        node, num_games = update_tree(all_games, filters, path)
+        show(node)
         try:
             cmd = input('\n> ')
         except (EOFError, KeyboardInterrupt):
@@ -29,40 +78,33 @@ def main_loop(root):
 
         output = ''
 
+        # TODO number commands, empty command
         if cmd == '/':
-            node = root
+            path = []
         elif cmd == '-':
-            if node.parent:
-                node = node.parent
-            else:
-                output = 'already at top of tree'
-        elif len(cmd) == 1 and cmd in '0123456789':
-            try:
-                node = node.sorted_children[int(cmd)]
-            except IndexError:
-                output = 'IndexError'
-        elif cmd == '':
-            if node.children:
-                node = node.sorted_children[0]
-            else:
-                output = 'already at bottom of tree'
-        elif node.has_child(cmd):
-            node = node.child(cmd)
+            # TODO "already at top"
+            path = path[:-1]
         else:
-            output = 'no such child ' + cmd
+            # TODO "no such child"
+            move = cmd
+            path.append(move)
 
         print(output + '\n')
 
-def make_tree(filename):
+
+def load_games(filename):
     with open(filename) as f:
         games = [Game(g) for g in json.load(f)]
 
-    # TODO filtering
-    games = [g for g in games if
+    # TODO maybe take some of this filtering out
+
+    return [g for g in games if
             g.is_white('prendradjaja') and
             g.variant == 'standard' and
             g.rated]
 
+
+def make_tree(games):
     root = Node(0)
 
     for g in games:
@@ -140,30 +182,12 @@ class Node:
 ################################################################################
 
 
-if len(sys.argv) not in (2, 3):
-    usage()
+# TODO
+# - use argparse
+# - restore 'debug mode'
+
+
+assert len(sys.argv) == 2
+
 filename = sys.argv[1]
-
-root = make_tree(filename)
-
-if len(sys.argv) == 3:
-    if sys.argv[2] == 'debug':
-        print('DEBUG MODE.')
-        print('Inspecting database:', filename)
-        print()
-
-        r = root
-        n = node = root
-        n.show()
-
-        print('\nAvailable local variables: n (node), r (root)')
-    else:
-        usage()
-elif len(sys.argv) == 2:
-    if filename == 'debug':
-        print('Whoops. You gave me the filename "debug"!')
-        exit(1)
-    main_loop(root)
-else:
-    assert False, 'Impossible!'
-    # Should've already exited if invalid number of arguments.
+main(filename)

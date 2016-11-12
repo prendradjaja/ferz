@@ -146,30 +146,14 @@ class Node:
 ################################################################################
 
 
-if len(sys.argv) not in (2, 3):
-    usage()
-filename = sys.argv[1]
+# TODO
+# - use argparse
+# - restore 'debug mode'
 
+
+assert len(sys.argv) == 2
+
+filename = sys.argv[1]
 root = make_tree(filename)
 
-if len(sys.argv) == 3:
-    if sys.argv[2] == 'debug':
-        print('DEBUG MODE.')
-        print('Inspecting database:', filename)
-        print()
-
-        r = root
-        n = node = root
-        n.show()
-
-        print('\nAvailable local variables: n (node), r (root)')
-    else:
-        usage()
-elif len(sys.argv) == 2:
-    if filename == 'debug':
-        print('Whoops. You gave me the filename "debug"!')
-        exit(1)
-    main_loop(root)
-else:
-    assert False, 'Impossible!'
-    # Should've already exited if invalid number of arguments.
+main_loop(root)

@@ -15,7 +15,8 @@ def usage():
 
 
 def main(filename):
-    root = make_tree(filename)
+    games = load_games(filename)
+    root = make_tree(games)
     main_loop(root)
 
 
@@ -72,9 +73,7 @@ def load_games(filename):
             g.rated]
 
 
-def make_tree(filename):
-    games = load_games(filename)
-
+def make_tree(games):
     root = Node(0)
 
     for g in games:

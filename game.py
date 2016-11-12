@@ -20,15 +20,25 @@ class Game:
         """
         self._game_dict = game_dict
 
-    # def __str__(self):
-    #     # return '{}: {}'.format(self.id, self.moves)
-    #     return '{}: {}'.format(self.id, self.moves[:20] + '..?')
-
     def __str__(self):
-        return '{}. vs {}.\t{} -- {}'.format(self.id, self.black[:8], readable(self.createdAt), self.moves[:4])
+        return (
 
-    # def __str__(self):
-    #     return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
+            # id
+            '{}. '.format(self.id) +
+
+            # black
+            'vs {}. '.format(self.black[:8]) +
+            '\t' +
+
+            # date
+            readable(self.createdAt) +
+            ' ' +
+
+            # moves
+            '-- ' +
+            str(self.moves[:4]) +
+
+        '')
 
     def color(self, username):
         return WHITE if self.is_white(username) else BLACK

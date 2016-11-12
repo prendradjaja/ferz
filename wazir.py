@@ -53,9 +53,15 @@ def main_loop(root):
 
         print(output + '\n')
 
-def make_tree(filename):
+
+def load_games(filename):
     with open(filename) as f:
-        games = [Game(g) for g in json.load(f)]
+        return [Game(g) for g in json.load(f)]
+
+
+def make_tree(filename):
+    all_games = load_games(filename)
+    games = all_games
 
     # TODO filtering
     games = [g for g in games if

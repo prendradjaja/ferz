@@ -91,7 +91,6 @@ def main_loop(all_games):
 
         output = ''
 
-        # TODO number commands, empty command
         # TODO encapsulate state into one object, write eval()
         cmd = parse(raw_cmd)
         if RootCommand.isinstance(cmd):
@@ -99,6 +98,11 @@ def main_loop(all_games):
         elif UpCommand.isinstance(cmd):
             # TODO "already at top"
             path = path[:-cmd.data.distance]
+        elif FrequentCommand.isinstance(cmd):
+            # TODO handle index error
+            rank = cmd.data.rank
+            move = node.sorted_children[rank].move
+            path.append(move)
         elif DaysCommand.isinstance(cmd):
             filters[DateFilter] = DateFilter(cmd.data.days)
         elif MoveCommand.isinstance(cmd):

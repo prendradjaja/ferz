@@ -43,6 +43,13 @@ python3 wazir.py prendradjaja.json
     _ Might also want to have some features for figuring out what X ("last X days") should be.
       _ Activity graph? (Histogram of games by date)
 
+    - Interactively explore a game database by walking up and down the "game tree."
+      x Basic "walking"
+      - At any node, show:
+        x Responses (with percentages and counts)
+        x Which player is to move
+        x Links to games
+
 ## Implementation todos
 
     x Pagination

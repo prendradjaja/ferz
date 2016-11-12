@@ -1,8 +1,7 @@
 import commands
 
 
-# TODO don't need command prefix anywhere
-class TestCommandAccessors:
+class TestAccessors:
 
     def test_move(self):
         thing = commands.MoveCommand('e4')
@@ -25,7 +24,7 @@ class TestIsInstance:
 
 
 
-class TestCommandEquality:
+class TestEquality:
 
     def test_same_type_same_contents(self):
         thing = commands.MoveCommand('e4')

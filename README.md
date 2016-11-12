@@ -42,6 +42,10 @@ python3 wazir.py prendradjaja.json
         x Responses (with percentages and counts)
         x Which player is to move
         x Links to games
+        - Counts:
+          x Games in this subtree
+          _ Games in this tree
+          _ Games in this file
 
     _ Filter by:
       x Date

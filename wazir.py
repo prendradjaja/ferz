@@ -4,9 +4,6 @@ Usage:
   python3 -i ./wazir.py DB_PATH debug
 """
 
-# TODO
-# - activity graph (i.e. how much have they played recently? histogram)
-
 
 from game import Game
 from filters import DateFilter, AllFilter

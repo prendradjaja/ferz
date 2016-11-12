@@ -1,6 +1,7 @@
 import datetime
 
 
+# TODO how do i make sure you actually subclass Filter?
 class Filter:
     def apply(self, games):
         raise Exception('not implemented')

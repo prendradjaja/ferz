@@ -24,6 +24,9 @@ class Game:
     #     # return '{}: {}'.format(self.id, self.moves)
     #     return '{}: {}'.format(self.id, self.moves[:20] + '..?')
 
+    def __str__(self):
+        return '{}. vs {}.\t{} -- {}'.format(self.id, self.black[:8], readable(self.createdAt), self.moves[:4])
+
     # def __str__(self):
     #     return '{}. {} vs {}. {} -- {}'.format(self.id, self.white, self.black, readable(self.createdAt), self.moves[:10])
 
@@ -53,6 +56,7 @@ class Game:
         except KeyError:
             return STOCKFISH
 
+    # TODO capitalization
     @property
     def createdAt(self):
         return datetime.datetime.fromtimestamp(self['createdAt']/1000)

@@ -4,10 +4,17 @@ Usage:
   python3 -i ./wazir.py DB_PATH debug
 """
 
+# TODO
+# - activity graph (i.e. how much have they played recently? histogram)
+
+
 from game import Game
+from filters import DateFilter, AllFilter
+
 import json
 import os
 import sys
+
 
 def usage():
     print(__doc__[1:][:-1])
@@ -16,12 +23,14 @@ def usage():
 
 def main(filename):
     all_games = load_games(filename)
+
     main_loop(all_games)
 
-
-class Filter:
-    def apply(self, games):
-        raise Exception('not implemented')
+    # debug code: comment out main_loop to use it
+    f = AllFilter()
+    print(bool(f))
+    for g in f.apply(all_games):
+        print(g)
 
 
 def update_tree(all_games, filters, path):
@@ -32,7 +41,7 @@ def update_tree(all_games, filters, path):
     A path is a list of moves e.g. ['e4', 'e5']
     """
     games = all_games
-    for f in filters:
+    for f in filters.values():
         games = f.apply(games)
     num_games = len(games)
 
@@ -61,7 +70,9 @@ def show(node):
 
 
 def main_loop(all_games):
-    filters = []
+    filters = {
+        DateFilter: AllFilter()
+    }
     path = []
 
     os.system('clear')
@@ -84,6 +95,11 @@ def main_loop(all_games):
         elif cmd == '-':
             # TODO "already at top"
             path = path[:-1]
+        elif cmd.startswith('d'):
+            # TODO d 3 notation is temporary; use 3d
+            _, days_str = cmd.split(' ')
+            days = int(days_str)
+            filters[DateFilter] = DateFilter(days)
         else:
             # TODO "no such child"
             move = cmd

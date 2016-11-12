@@ -13,6 +13,11 @@ def usage():
     print(__doc__[1:][:-1])
     exit(1)
 
+
+def main(filename):
+    root = make_tree(filename)
+    main_loop(root)
+
 def main_loop(root):
     node = root
 
@@ -154,6 +159,4 @@ class Node:
 assert len(sys.argv) == 2
 
 filename = sys.argv[1]
-root = make_tree(filename)
-
-main_loop(root)
+main(filename)

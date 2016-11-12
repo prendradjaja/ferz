@@ -9,10 +9,12 @@ Usage:
 
 
 from game import Game
+from filters import DateFilter, AllFilter
+
 import json
 import os
 import sys
-import datetime
+
 
 def usage():
     print(__doc__[1:][:-1])
@@ -29,31 +31,6 @@ def main(filename):
     print(bool(f))
     for g in f.apply(all_games):
         print(g)
-
-
-class Filter:
-    def apply(self, games):
-        raise Exception('not implemented')
-
-
-class AllFilter(Filter):
-    def apply(self, games):
-        return games
-
-    # TODO is this actually needed?
-    def __bool__(self):
-        return False
-
-
-class DateFilter(Filter):
-    def __init__(self, days):
-        self.days = days
-
-    def apply(self, games):
-        recent = (lambda g:
-                  datetime.timedelta(self.days)
-                  >= datetime.datetime.now() - g.createdAt)
-        return list(filter(recent, games))
 
 
 def update_tree(all_games, filters, path):

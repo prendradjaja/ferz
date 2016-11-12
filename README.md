@@ -1,4 +1,4 @@
-# Ferz
+# Ferz and Wazir
 
 ## Setup
 
@@ -10,17 +10,23 @@ pip3 install -r requirements.txt
 
 ## Run
 
-Make sure you've got the venv activated! Then run:
+Activate the venv:
 
 ```
-python3 main.py
+. activate-venv
 ```
 
-## Purpose
+Download a user's games with Ferz:
 
-This program bulk-downloads PGNs for a given lichess user. This data is to be
-consumed by another program, Wazir, whose purpose is to explore a player's
-opening tree and games.
+```
+python3 ferz.py prendradjaja -o prendradjaja.json
+```
+
+Explore their openings with Wazir:
+
+```
+python3 wazir.py prendradjaja.json
+```
 
 ## Features
 

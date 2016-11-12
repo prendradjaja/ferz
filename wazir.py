@@ -8,6 +8,7 @@ Usage:
 from game import Game
 from filters import DateFilter, AllFilter
 
+import argparse
 import json
 import os
 import sys
@@ -195,12 +196,11 @@ class Node:
 ################################################################################
 
 
-# TODO
-# - use argparse
-# - restore 'debug mode'
+# TODO restore 'debug mode'
 
 
-assert len(sys.argv) == 2
+parser = argparse.ArgumentParser()
+parser.add_argument('filename')
+args = parser.parse_args()
 
-filename = sys.argv[1]
-main(filename)
+main(args.filename)

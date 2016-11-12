@@ -7,6 +7,10 @@ Usage:
 
 from game import Game
 from filters import DateFilter, AllFilter
+from command_parser import parse
+from commands import (DaysCommand, FrequentCommand, HumanCommand,
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
+        YearsCommand)
 
 import argparse
 import json
@@ -79,7 +83,7 @@ def main_loop(all_games):
         node, num_games = update_tree(all_games, filters, path)
         show(node)
         try:
-            cmd = input('\n> ')
+            raw_cmd = input('\n> ')
         except (EOFError, KeyboardInterrupt):
             print()
             exit(1)
@@ -88,20 +92,19 @@ def main_loop(all_games):
         output = ''
 
         # TODO number commands, empty command
-        if cmd == '/':
+        # TODO encapsulate state into one object, write eval()
+        cmd = parse(raw_cmd)
+        if RootCommand.isinstance(cmd):
             path = []
-        elif cmd == '-':
+        elif UpCommand.isinstance(cmd):
             # TODO "already at top"
-            path = path[:-1]
-        elif cmd.startswith('d'):
-            # TODO d 3 notation is temporary; use 3d
-            _, days_str = cmd.split(' ')
-            days = int(days_str)
-            filters[DateFilter] = DateFilter(days)
+            path = path[:-cmd.data.distance]
+        elif DaysCommand.isinstance(cmd):
+            filters[DateFilter] = DateFilter(cmd.data.days)
+        elif MoveCommand.isinstance(cmd):
+            path.append(cmd.data.move)
         else:
-            # TODO "no such child"
-            move = cmd
-            path.append(move)
+            raise Exception('not implemented: ' + cmd.type)
 
         print(output + '\n')
 

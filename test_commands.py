@@ -1,11 +1,8 @@
 import commands
 
 
+# TODO don't need command prefix anywhere
 class TestCommandAccessors:
-
-    def test_type_name(self):
-        thing = commands.MoveCommand('e4')
-        assert thing.type == 'MoveCommand'
 
     def test_move(self):
         thing = commands.MoveCommand('e4')
@@ -14,6 +11,18 @@ class TestCommandAccessors:
     def test_days(self):
         thing = commands.DaysCommand(3)
         assert thing.data.days == 3
+
+
+class TestIsInstance:
+
+    def test_true(self):
+        thing = commands.MoveCommand('e4')
+        assert commands.MoveCommand.isinstance(thing)
+
+    def test_false(self):
+        thing = commands.MoveCommand('e4')
+        assert not commands.DaysCommand.isinstance(thing)
+
 
 
 class TestCommandEquality:

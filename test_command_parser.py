@@ -4,7 +4,8 @@ import pytest
 
 
 @pytest.mark.parametrize('input,expected', [
-    ('', commands.Frequent(0)),
+    ('', commands.Repeat()),
+
     ('0', commands.Frequent(0)),
     ('1', commands.Frequent(1)),
     ('5', commands.Frequent(5)),

@@ -13,11 +13,11 @@ def _command_type(name, fields):
     CommandType = collections.namedtuple(name, fields)
 
     # TODO isinstance feels hacky. maybe better to just use
-    #   cmd.type == 'UpCommand'
+    #   cmd.type == 'Up'
     # or
-    #   cmd.type == UpCommand.name  # need to implement .name
+    #   cmd.type == Up.name  # need to implement .name
     # instead of
-    #   UpCommand.isinstance(cmd)
+    #   Up.isinstance(cmd)
     def _isinstance(obj):
         return obj.type == name
 
@@ -32,15 +32,15 @@ def _command_type(name, fields):
 # TODO Can I do any type checking?
 
 # navigating the tree
-UpCommand = _command_type('UpCommand', 'distance')
-MoveCommand = _command_type('MoveCommand', 'move')
-FrequentCommand = _command_type('FrequentCommand', 'rank')  # rank starts at 0
-RootCommand = _command_type('RootCommand', '')
+Up = _command_type('Up', 'distance')
+Move = _command_type('Move', 'move')
+Frequent = _command_type('Frequent', 'rank')  # rank starts at 0
+Root = _command_type('Root', '')
 
 # filtering
-DaysCommand = _command_type('DaysCommand', 'days')
-MonthsCommand = _command_type('MonthsCommand', 'months')
-YearsCommand = _command_type('YearsCommand', 'years')
-HumanCommand = _command_type('HumanCommand', '')
-RatedCommand = _command_type('RatedCommand', '')
-TimeControlCommand = _command_type('TimeControlCommand', 'minutes')
+Days = _command_type('Days', 'days')
+Months = _command_type('Months', 'months')
+Years = _command_type('Years', 'years')
+Human = _command_type('Human', '')
+Rated = _command_type('Rated', '')
+TimeControl = _command_type('TimeControl', 'minutes')

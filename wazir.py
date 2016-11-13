@@ -8,9 +8,7 @@ Usage:
 from game import Game
 from filters import DateFilter, AllFilter, TimeControlFilter, RatedFilter
 from command_parser import parse
-from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
-        TimeControlCommand, UpCommand, YearsCommand)
+import commands
 from table_display import format_table
 
 import argparse
@@ -98,29 +96,29 @@ def main_loop(all_games):
 
         # TODO encapsulate state into one object, write eval()
         cmd = parse(raw_cmd)
-        if RootCommand.isinstance(cmd):
+        if commands.Root.isinstance(cmd):
             path = []
-        elif UpCommand.isinstance(cmd):
+        elif commands.Up.isinstance(cmd):
             # TODO "already at top"
             path = path[:-cmd.data.distance]
-        elif FrequentCommand.isinstance(cmd):
+        elif commands.Frequent.isinstance(cmd):
             # TODO handle index error
             rank = cmd.data.rank
             move = node.sorted_children[rank].move
             path.append(move)
-        elif DaysCommand.isinstance(cmd):
+        elif commands.Days.isinstance(cmd):
             filters[DateFilter] = DateFilter(cmd.data.days)
-        elif TimeControlCommand.isinstance(cmd):
+        elif commands.TimeControl.isinstance(cmd):
             filters[TimeControlFilter] = TimeControlFilter(cmd.data.minutes)
-        elif MoveCommand.isinstance(cmd):
+        elif commands.Move.isinstance(cmd):
             path.append(cmd.data.move)
-        elif RatedCommand.isinstance(cmd):
+        elif commands.Rated.isinstance(cmd):
             if filters[RatedFilter]:
                 filters[RatedFilter] = AllFilter()
             else:
                 filters[RatedFilter] = RatedFilter()
         else:
-            raise Exception('not implemented: ' + cmd.type)
+            raise Exception('command not implemented: ' + cmd.type)
 
         print(output + '\n')
 

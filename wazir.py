@@ -11,6 +11,7 @@ from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
         MonthsCommand, MoveCommand, RatedCommand, RootCommand,
         TimeControlCommand, UpCommand, YearsCommand)
+from table_display import format_table
 
 import argparse
 import json
@@ -199,16 +200,45 @@ class Node:
                   ' Size: {}'.format(self.size) +
                   '\n')
         print(header)
+
+        # TODO this method is massive. does everything need to be here?
+        table = []
         for i, child in enumerate(self.sorted_children):
-            move = ('...' if self.black_to_move else '   ') + child.move
             percent = child.size / self.size * 100
-            s = '  ({}) {}\t{}\t{:.1f}%'.format(i, move, child.size, percent)
-            if child.size <= 3:
-                s += '\t   ' + '  '.join(game.id for game in child.games)
-            print(s)
+            table.append([
+                i,
+                ('...' if self.black_to_move else '   ') + child.move,
+                child.size,
+                percent,
+                [g.id for g in child.games] if len(child.games) <= 3 else [],
+            ])
+
+        identity  = lambda x: x
+        ljust     = lambda n: lambda x: x.ljust(n)
+        rjust     = lambda n: lambda x: x.rjust(n)
+        lpad      = lambda n: lambda x: ' ' * n + x
+        rpad      = lambda n: lambda x: x + ' ' * n
+        parens    = lambda x: '(' + x + ')'
+
+        LINK_WIDTH = 8
+        MAX_NUM_LINKS = 3
+        SEPARATOR_WIDTH = 2
+        LINKS_COL_WIDTH = (LINK_WIDTH * MAX_NUM_LINKS
+                           + SEPARATOR_WIDTH * (MAX_NUM_LINKS - 1))
+
+        MOVE_COL_WIDTH = len('...exd8=Q+') - 3
+        PERCENT_COL_WIDTH = len('100.0%')
+
+        my_formatters = [
+            [str, parens, rjust(6)],  # width is arbitrary
+            [ljust(MOVE_COL_WIDTH)],
+            [str, rjust(5)],  # width is arbitrary
+            [lambda x: '{:.1f}%'.format(x), rjust(PERCENT_COL_WIDTH)],
             # TODO is that the right formatting for rounding?
-            # TODO need real table formatting. also, moves can be up to
-            #      seven characters long, e.g. exd8=Q+
+            [lambda x: '  '.join(x), ljust(LINKS_COL_WIDTH), lpad(3)],
+        ]
+
+        print(format_table(table, my_formatters))
 
 ################################################################################
 

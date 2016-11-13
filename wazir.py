@@ -83,6 +83,7 @@ def main_loop(all_games):
 
     os.system('clear')
     print('\n')
+    cmd = None
     while True:
         node, num_games = update_tree(all_games, using_filters, path)
         show(node)
@@ -96,7 +97,16 @@ def main_loop(all_games):
         output = ''
 
         # TODO encapsulate state into one object, write eval()
+        last_cmd = cmd
         cmd = parse(raw_cmd)
+
+        if commands.Repeat.isinstance(cmd):
+            if last_cmd:
+                cmd = last_cmd
+            else:
+                # TODO fail more gracefully
+                raise Exception('no last command')
+
         if commands.Root.isinstance(cmd):
             path = []
         elif commands.Up.isinstance(cmd):

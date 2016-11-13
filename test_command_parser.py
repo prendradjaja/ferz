@@ -23,6 +23,7 @@ import pytest
 
     ('2t', TimeControlCommand(2)),
     ('20t', TimeControlCommand(20)),
+    # but not 't' itself
 
     ('3d', DaysCommand(3)),
     ('21d', DaysCommand(21)),
@@ -44,6 +45,7 @@ import pytest
 
     # things that aren't actually algebraic moves but aren't valid commands
     # (currently we just parse all of these as algebraic moves)
+    ('t', MoveCommand('t')),
     ('d', MoveCommand('d')),
     ('m', MoveCommand('m')),
     ('y', MoveCommand('y')),

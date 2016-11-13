@@ -25,6 +25,18 @@ Explore their openings with Wazir:
     python3 wazir.py prendradjaja.json
 
 
+## Unit tests
+
+Activate the venv if you haven't already:
+
+    . activate-venv
+
+
+Run the tests:
+
+    py.test
+
+
 ## Features
 
     x Bulk-download PGNs for a given user

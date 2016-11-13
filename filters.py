@@ -33,5 +33,6 @@ class TimeControlFilter(Filter):
         self.minutes = minutes
 
     def apply(self, games):
-        return list(filter(lambda g: g.time > self.minutes,
+        # + 0.0001 because floating point.
+        return list(filter(lambda g: g.time + 0.0001 >= self.minutes,
                            games))

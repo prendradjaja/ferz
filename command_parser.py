@@ -1,6 +1,6 @@
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
-        YearsCommand)
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
+        TimeControlCommand, UpCommand, YearsCommand)
 import re
 
 

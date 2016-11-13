@@ -1,7 +1,7 @@
 from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
-        YearsCommand)
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
+        TimeControlCommand, UpCommand, YearsCommand)
 import pytest
 
 
@@ -20,6 +20,10 @@ import pytest
     ('-', UpCommand(1)),
     ('--', UpCommand(2)),
     ('-----', UpCommand(5)),
+
+    ('2t', TimeControlCommand(2)),
+    ('20t', TimeControlCommand(20)),
+    # but not 't' itself
 
     ('3d', DaysCommand(3)),
     ('21d', DaysCommand(21)),
@@ -41,6 +45,7 @@ import pytest
 
     # things that aren't actually algebraic moves but aren't valid commands
     # (currently we just parse all of these as algebraic moves)
+    ('t', MoveCommand('t')),
     ('d', MoveCommand('d')),
     ('m', MoveCommand('m')),
     ('y', MoveCommand('y')),

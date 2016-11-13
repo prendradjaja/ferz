@@ -38,7 +38,24 @@ class Game:
             '-- ' +
             str(self.moves[:4]) +
 
+            # # time
+            # 'me: {:.2f}\t'.format(self.time) +
+            # 'li: {:.2f}\t'.format(self['clock']['totalTime'] / 60) +
+
         '')
+
+    @property
+    def time(self):
+        """
+        (in minutes) initial time + 40sec * increment
+
+        I think this is equal to self['clock']['totalTime'] / 60, but lichess
+        API documentation suggests that the multiplier is 30, not 40. Not sure
+        if that's a bug, so I'll just reimplement the totalTime calculation
+        here.
+        """
+        return ((self['clock']['initial'] + 40 * self['clock']['increment'])
+                / 60)
 
     def color(self, username):
         return WHITE if self.is_white(username) else BLACK

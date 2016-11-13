@@ -6,11 +6,11 @@ Usage:
 
 
 from game import Game
-from filters import DateFilter, AllFilter
+from filters import DateFilter, AllFilter, TimeControlFilter
 from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
-        YearsCommand)
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
+        TimeControlCommand, UpCommand, YearsCommand)
 
 import argparse
 import json
@@ -29,10 +29,12 @@ def main(filename):
     main_loop(all_games)
 
     # debug code: comment out main_loop to use it
-    f = AllFilter()
-    print(bool(f))
-    for g in f.apply(all_games):
+    f = TimeControlFilter(30)
+    games = f.apply(all_games)
+    print(len(games))
+    for g in games:
         print(g)
+    print(len(games))
 
 
 def update_tree(all_games, filters, path):
@@ -73,7 +75,8 @@ def show(node):
 
 def main_loop(all_games):
     filters = {
-        DateFilter: AllFilter()
+        DateFilter: AllFilter(),
+        TimeControlFilter: AllFilter(),
     }
     path = []
 
@@ -105,6 +108,8 @@ def main_loop(all_games):
             path.append(move)
         elif DaysCommand.isinstance(cmd):
             filters[DateFilter] = DateFilter(cmd.data.days)
+        elif TimeControlCommand.isinstance(cmd):
+            filters[TimeControlFilter] = TimeControlFilter(cmd.data.minutes)
         elif MoveCommand.isinstance(cmd):
             path.append(cmd.data.move)
         else:

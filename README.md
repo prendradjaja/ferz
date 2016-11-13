@@ -12,21 +12,18 @@ pip3 install -r requirements.txt
 
 Activate the venv if you haven't already:
 
-```
-. activate-venv
-```
+    . activate-venv
+
 
 Download a user's games with Ferz:
 
-```
-python3 ferz.py prendradjaja -o prendradjaja.json
-```
+    python3 ferz.py prendradjaja -o prendradjaja.json
+
 
 Explore their openings with Wazir:
 
-```
-python3 wazir.py prendradjaja.json
-```
+    python3 wazir.py prendradjaja.json
+
 
 ## Features
 

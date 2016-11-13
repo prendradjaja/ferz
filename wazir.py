@@ -6,11 +6,9 @@ Usage:
 
 
 from game import Game
-from filters import DateFilter, AllFilter, TimeControlFilter, RatedFilter
+import filters
 from command_parser import parse
-from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
-        TimeControlCommand, UpCommand, YearsCommand)
+import commands
 from table_display import format_table
 
 import argparse
@@ -30,7 +28,7 @@ def main(filename):
     main_loop(all_games)
 
     # debug code: comment out main_loop to use it
-    f = TimeControlFilter(30)
+    f = filters.TimeControl(30)
     games = f.apply(all_games)
     print(len(games))
     for g in games:
@@ -38,7 +36,7 @@ def main(filename):
     print(len(games))
 
 
-def update_tree(all_games, filters, path):
+def update_tree(all_games, using_filters, path):
     """
     Filter games, return:
         (node_or_none, num_games)
@@ -46,7 +44,7 @@ def update_tree(all_games, filters, path):
     A path is a list of moves e.g. ['e4', 'e5']
     """
     games = all_games
-    for f in filters.values():
+    for f in using_filters.values():
         games = f.apply(games)
     num_games = len(games)
 
@@ -75,17 +73,19 @@ def show(node):
 
 
 def main_loop(all_games):
-    filters = {
-        DateFilter: AllFilter(),
-        TimeControlFilter: AllFilter(),
-        RatedFilter: AllFilter(),
+    # TODO there's gotta be a better name.
+    using_filters = {
+        filters.Date: filters.All(),
+        filters.TimeControl: filters.All(),
+        filters.Rated: filters.All(),
     }
     path = []
 
     os.system('clear')
     print('\n')
+    cmd = None
     while True:
-        node, num_games = update_tree(all_games, filters, path)
+        node, num_games = update_tree(all_games, using_filters, path)
         show(node)
         try:
             raw_cmd = input('\n> ')
@@ -97,30 +97,40 @@ def main_loop(all_games):
         output = ''
 
         # TODO encapsulate state into one object, write eval()
+        last_cmd = cmd
         cmd = parse(raw_cmd)
-        if RootCommand.isinstance(cmd):
+
+        if commands.Repeat.isinstance(cmd):
+            if last_cmd:
+                cmd = last_cmd
+            else:
+                # TODO fail more gracefully
+                raise Exception('no last command')
+
+        if commands.Root.isinstance(cmd):
             path = []
-        elif UpCommand.isinstance(cmd):
+        elif commands.Up.isinstance(cmd):
             # TODO "already at top"
             path = path[:-cmd.data.distance]
-        elif FrequentCommand.isinstance(cmd):
+        elif commands.Frequent.isinstance(cmd):
             # TODO handle index error
             rank = cmd.data.rank
             move = node.sorted_children[rank].move
             path.append(move)
-        elif DaysCommand.isinstance(cmd):
-            filters[DateFilter] = DateFilter(cmd.data.days)
-        elif TimeControlCommand.isinstance(cmd):
-            filters[TimeControlFilter] = TimeControlFilter(cmd.data.minutes)
-        elif MoveCommand.isinstance(cmd):
+        elif commands.Days.isinstance(cmd):
+            using_filters[filters.Date] = filters.Date(cmd.data.days)
+        elif commands.TimeControl.isinstance(cmd):
+            using_filters[filters.TimeControl] = \
+                    filters.TimeControl(cmd.data.minutes)
+        elif commands.Move.isinstance(cmd):
             path.append(cmd.data.move)
-        elif RatedCommand.isinstance(cmd):
-            if filters[RatedFilter]:
-                filters[RatedFilter] = AllFilter()
+        elif commands.Rated.isinstance(cmd):
+            if using_filters[filters.Rated]:
+                using_filters[filters.Rated] = filters.All()
             else:
-                filters[RatedFilter] = RatedFilter()
+                using_filters[filters.Rated] = filters.Rated()
         else:
-            raise Exception('not implemented: ' + cmd.type)
+            raise Exception('command not implemented: ' + cmd.type)
 
         print(output + '\n')
 

@@ -12,6 +12,7 @@ _REGEX_UP   = re.compile('-+')
 _REGEX_DAYS = re.compile('(\d+)d')
 _REGEX_MONTHS = re.compile('(\d+)m')
 _REGEX_YEARS = re.compile('(\d+)y')
+_REGEX_TIME_CONTROL = re.compile('(\d+)t')
 
 
 def parse(cmd):
@@ -49,6 +50,11 @@ def parse(cmd):
         years_str = _REGEX_YEARS.fullmatch(cmd).group(1)
         years = int(years_str)
         return YearsCommand(years)
+
+    elif _REGEX_TIME_CONTROL.fullmatch(cmd):
+        minutes_str = _REGEX_TIME_CONTROL.fullmatch(cmd).group(1)
+        minutes = int(minutes_str)
+        return TimeControlCommand(minutes)
 
     else:  # TODO maybe want a regex for moves?
         return MoveCommand(cmd)

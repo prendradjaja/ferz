@@ -25,3 +25,13 @@ class DateFilter(Filter):
                   datetime.timedelta(self.days)
                   >= datetime.datetime.now() - g.createdAt)
         return list(filter(recent, games))
+
+
+# TODO "less than" -- this only does "greater than"
+class TimeControlFilter(Filter):
+    def __init__(self, minutes):
+        self.minutes = minutes
+
+    def apply(self, games):
+        return list(filter(lambda g: g.time > self.minutes,
+                           games))

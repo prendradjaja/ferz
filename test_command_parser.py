@@ -1,7 +1,7 @@
 from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
-        YearsCommand)
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
+        TimeControlCommand, UpCommand, YearsCommand)
 import pytest
 
 
@@ -20,6 +20,9 @@ import pytest
     ('-', UpCommand(1)),
     ('--', UpCommand(2)),
     ('-----', UpCommand(5)),
+
+    ('2t', TimeControlCommand(2)),
+    ('20t', TimeControlCommand(20)),
 
     ('3d', DaysCommand(3)),
     ('21d', DaysCommand(21)),

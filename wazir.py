@@ -6,11 +6,11 @@ Usage:
 
 
 from game import Game
-from filters import DateFilter, AllFilter
+from filters import DateFilter, AllFilter, TimeControlFilter
 from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
-        MonthsCommand, MoveCommand, RatedCommand, RootCommand, UpCommand,
-        YearsCommand)
+        MonthsCommand, MoveCommand, RatedCommand, RootCommand,
+        TimeControlCommand, UpCommand, YearsCommand)
 
 import argparse
 import json
@@ -75,7 +75,8 @@ def show(node):
 
 def main_loop(all_games):
     filters = {
-        DateFilter: AllFilter()
+        DateFilter: AllFilter(),
+        TimeControlFilter: AllFilter(),
     }
     path = []
 
@@ -107,6 +108,8 @@ def main_loop(all_games):
             path.append(move)
         elif DaysCommand.isinstance(cmd):
             filters[DateFilter] = DateFilter(cmd.data.days)
+        elif TimeControlCommand.isinstance(cmd):
+            filters[DateFilter] = DateFilter(cmd.data.minutes)
         elif MoveCommand.isinstance(cmd):
             path.append(cmd.data.move)
         else:

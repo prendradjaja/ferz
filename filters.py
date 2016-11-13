@@ -2,12 +2,13 @@ import datetime
 
 
 # TODO how do i make sure you actually subclass Filter?
+# TODO maybe rename to _Filter?
 class Filter:
     def apply(self, games):
         raise Exception('not implemented')
 
 
-class AllFilter(Filter):
+class All(Filter):
     def apply(self, games):
         return games
 
@@ -18,7 +19,7 @@ class AllFilter(Filter):
         return 'AllFilter()'
 
 
-class DateFilter(Filter):
+class Date(Filter):
     def __init__(self, days):
         self.days = days
 
@@ -33,7 +34,7 @@ class DateFilter(Filter):
 
 
 # TODO "less than" -- this only does "greater than"
-class TimeControlFilter(Filter):
+class TimeControl(Filter):
     def __init__(self, minutes):
         self.minutes = minutes
 
@@ -46,6 +47,6 @@ class TimeControlFilter(Filter):
         return 'TimeControlFilter({})'.format(self.minutes)
 
 
-class RatedFilter(Filter):
+class Rated(Filter):
     def apply(self, games):
         return list(filter(lambda g: g.rated, games))

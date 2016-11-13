@@ -11,7 +11,6 @@ class AllFilter(Filter):
     def apply(self, games):
         return games
 
-    # TODO is this actually needed?
     def __bool__(self):
         return False
 
@@ -45,3 +44,8 @@ class TimeControlFilter(Filter):
 
     def __repr__(self):
         return 'TimeControlFilter({})'.format(self.minutes)
+
+
+class RatedFilter(Filter):
+    def apply(self, games):
+        return list(filter(lambda g: g.rated, games))

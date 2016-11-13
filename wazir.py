@@ -6,7 +6,7 @@ Usage:
 
 
 from game import Game
-from filters import DateFilter, AllFilter, TimeControlFilter
+from filters import DateFilter, AllFilter, TimeControlFilter, RatedFilter
 from command_parser import parse
 from commands import (DaysCommand, FrequentCommand, HumanCommand,
         MonthsCommand, MoveCommand, RatedCommand, RootCommand,
@@ -77,6 +77,7 @@ def main_loop(all_games):
     filters = {
         DateFilter: AllFilter(),
         TimeControlFilter: AllFilter(),
+        RatedFilter: AllFilter(),
     }
     path = []
 
@@ -112,6 +113,11 @@ def main_loop(all_games):
             filters[TimeControlFilter] = TimeControlFilter(cmd.data.minutes)
         elif MoveCommand.isinstance(cmd):
             path.append(cmd.data.move)
+        elif RatedCommand.isinstance(cmd):
+            if filters[RatedFilter]:
+                filters[RatedFilter] = AllFilter()
+            else:
+                filters[RatedFilter] = RatedFilter()
         else:
             raise Exception('not implemented: ' + cmd.type)
 
@@ -126,8 +132,7 @@ def load_games(filename):
 
     return [g for g in games if
             g.is_white('prendradjaja') and
-            g.variant == 'standard' and
-            g.rated]
+            g.variant == 'standard']
 
 
 def make_tree(games):

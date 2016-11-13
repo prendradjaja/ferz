@@ -5,7 +5,6 @@ import re
 
 # TODO
 # - do i want to attach raw command text?
-# - need a command for filtering by time control
 
 _REGEX_UP   = re.compile('-+')
 _REGEX_DAYS = re.compile('(\d+)d')

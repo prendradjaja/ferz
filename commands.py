@@ -30,6 +30,9 @@ def _command_type(name, fields):
 ### Public
 
 # TODO Can I do any type checking?
+# TODO documentation
+
+Repeat = _command_type('Repeat', '')
 
 # navigating the tree
 Up = _command_type('Up', 'distance')

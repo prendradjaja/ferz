@@ -29,10 +29,12 @@ def main(filename):
     main_loop(all_games)
 
     # debug code: comment out main_loop to use it
-    f = AllFilter()
-    print(bool(f))
-    for g in f.apply(all_games):
+    f = TimeControlFilter(30)
+    games = f.apply(all_games)
+    print(len(games))
+    for g in games:
         print(g)
+    print(len(games))
 
 
 def update_tree(all_games, filters, path):

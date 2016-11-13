@@ -38,6 +38,10 @@ class Game:
             '-- ' +
             str(self.moves[:4]) +
 
+            # # time
+            # 'me: {:.2f}\t'.format(self.time) +
+            # 'li: {:.2f}\t'.format(self['clock']['totalTime'] / 60) +
+
         '')
 
     @property

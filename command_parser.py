@@ -16,7 +16,7 @@ _REGEX_TIME_CONTROL = re.compile('(\d+)t')
 
 def parse(cmd):
     if cmd == '':
-        return commands.Frequent(0)
+        return commands.Repeat()
 
     elif len(cmd) == 1 and cmd.isdigit():
         rank = int(cmd)

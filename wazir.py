@@ -109,7 +109,7 @@ def main_loop(all_games):
         elif DaysCommand.isinstance(cmd):
             filters[DateFilter] = DateFilter(cmd.data.days)
         elif TimeControlCommand.isinstance(cmd):
-            filters[DateFilter] = DateFilter(cmd.data.minutes)
+            filters[TimeControlFilter] = TimeControlFilter(cmd.data.minutes)
         elif MoveCommand.isinstance(cmd):
             path.append(cmd.data.move)
         else:

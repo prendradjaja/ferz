@@ -64,10 +64,9 @@ def find_node(node, path):
     return node
 
 
-def show(node):
-    # TODO it's silly to have this and node.show()...
-    if node:
-        node.show()
+def show():
+    if Store.node:
+        Store.node.show()
     else:
         print('nothing')
 
@@ -105,7 +104,7 @@ def main_loop(_all_games):
         Store.node, Store.num_games = update_tree(Store.all_games,
                                                   Store.using_filters,
                                                   Store.path)
-        show(Store.node)
+        show()
         try:
             raw_cmd = input('\n> ')
         except (EOFError, KeyboardInterrupt):

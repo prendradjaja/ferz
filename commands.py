@@ -35,6 +35,8 @@ def _command_type(name, fields):
 Repeat = _command_type('Repeat', '')
 NoOp = _command_type('NoOp', '')
 
+Help = _command_type('Help', '')
+
 # navigating the tree
 Up = _command_type('Up', 'distance')
 Move = _command_type('Move', 'move')

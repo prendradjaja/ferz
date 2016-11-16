@@ -74,6 +74,12 @@ def show():
               '\n')
     print(header)
 
+    if Store.display_help:
+        print('HELP TEXT HERE')
+    else:
+        print('? for help')
+    print()
+
     if Store.node:
         Store.node.show()
     else:
@@ -106,6 +112,7 @@ def main_loop(_all_games):
     Store.node = None
     Store.num_games = None
     Store.next_message = ''
+    Store.display_help = False
 
     os.system('clear')
     cmd = None
@@ -161,6 +168,8 @@ def main_loop(_all_games):
                 Store.using_filters[filters.Rated] = filters.All()
             else:
                 Store.using_filters[filters.Rated] = filters.Rated()
+        elif commands.Help.isinstance(cmd):
+            Store.display_help = not Store.display_help
         else:
             Store.next_message = 'Command not implemented: ' + cmd.type
 

@@ -30,6 +30,9 @@ def parse(cmd):
     elif cmd == '/':
         return commands.Root()
 
+    elif cmd == '?':
+        return commands.Help()
+
     elif _REGEX_UP.fullmatch(cmd):
         return commands.Up(len(cmd))
 

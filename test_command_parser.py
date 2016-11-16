@@ -15,6 +15,7 @@ import pytest
     ('h', commands.Human()),
     ('r', commands.Rated()),
     ('/', commands.Root()),
+    ('?', commands.Help()),
 
     ('-', commands.Up(1)),
     ('--', commands.Up(2)),

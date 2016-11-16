@@ -65,6 +65,7 @@ def find_node(node, path):
 
 
 def show():
+    print(Store.next_message + '\n')
     if Store.node:
         Store.node.show()
     else:
@@ -96,23 +97,22 @@ def main_loop(_all_games):
     Store.path = []
     Store.node = None
     Store.num_games = None
+    Store.next_message = ''
 
     os.system('clear')
-    print('\n')
     cmd = None
     while True:
         Store.node, Store.num_games = update_tree(Store.all_games,
                                                   Store.using_filters,
                                                   Store.path)
         show()
+        Store.next_message = ''
         try:
             raw_cmd = input('\n> ')
         except (EOFError, KeyboardInterrupt):
             print()
             exit(1)
         os.system('clear')
-
-        output = ''
 
         # TODO encapsulate state into one object, write eval()
         last_cmd = cmd
@@ -149,8 +149,6 @@ def main_loop(_all_games):
                 Store.using_filters[filters.Rated] = filters.Rated()
         else:
             raise Exception('command not implemented: ' + cmd.type)
-
-        print(output + '\n')
 
 
 def load_games(filename):

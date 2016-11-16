@@ -66,6 +66,11 @@ def find_node(node, path):
 
 def show():
     print(Store.next_message + '\n')
+    header = ('D: {}'.format(Store.node.depth).ljust(7) +
+              ' N: {} / {}'.format(Store.node.size, Store.num_games) +
+              '\n')
+    print(header)
+
     if Store.node:
         Store.node.show()
     else:
@@ -228,11 +233,6 @@ class Node:
         return self.depth % 2
 
     def show(self):
-        header = ('Depth: {}'.format(self.depth).ljust(11) +
-                  ' Size: {}'.format(self.size) +
-                  '\n')
-        print(header)
-
         # TODO this method is massive. does everything need to be here?
         table = []
         for i, child in enumerate(self.sorted_children):

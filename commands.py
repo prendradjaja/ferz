@@ -36,6 +36,8 @@ Repeat = _command_type('Repeat', '')
 NoOp = _command_type('NoOp', '')
 
 Help = _command_type('Help', '')
+HelpTopic = _command_type('HelpTopic', 'topic')
+MoreHelp = _command_type('MoreHelp', '')
 
 # navigating the tree
 Up = _command_type('Up', 'distance')

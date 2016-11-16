@@ -20,17 +20,14 @@ def parse(cmd):
         rank = int(cmd)
         return commands.Frequent(rank)
 
-    elif cmd == 'h':
-        return commands.Human()
-
-    elif cmd == 'r':
-        return commands.Rated()
-
-    elif cmd == '/':
-        return commands.Root()
-
-    elif cmd == '?':
-        return commands.Help()
+    elif cmd == 'h':  return commands.Human()
+    elif cmd == 'r':  return commands.Rated()
+    elif cmd == '/':  return commands.Root()
+    elif cmd == '?':  return commands.Help()
+    elif cmd == '??': return commands.MoreHelp()
+    elif cmd == 't':  return commands.HelpTopic('t')
+    elif cmd == 'd':  return commands.HelpTopic('d')
+    elif cmd == 'm':  return commands.HelpTopic('m')
 
     elif _REGEX_UP.fullmatch(cmd):
         return commands.Up(len(cmd))

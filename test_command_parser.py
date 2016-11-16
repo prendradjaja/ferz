@@ -16,18 +16,20 @@ import pytest
     ('r', commands.Rated()),
     ('/', commands.Root()),
     ('?', commands.Help()),
+    ('??', commands.MoreHelp()),
 
     ('-', commands.Up(1)),
     ('--', commands.Up(2)),
     ('-----', commands.Up(5)),
 
+    ('t', commands.HelpTopic('t')),
     ('2t', commands.TimeControl(2)),
     ('20t', commands.TimeControl(20)),
-    # but not 't' itself
 
+    ('d', commands.HelpTopic('d')),
+    ('m', commands.HelpTopic('m')),
     ('3d', commands.Days(3)),
     ('21d', commands.Days(21)),
-    # but not 'd' itself
     ('7m', commands.Months(7)),
     ('77777m', commands.Months(77777)),
 
@@ -43,9 +45,6 @@ import pytest
 
     # things that aren't actually algebraic moves but aren't valid commands
     # (currently we just parse all of these as algebraic moves)
-    ('t', commands.Move('t')),
-    ('d', commands.Move('d')),
-    ('m', commands.Move('m')),
     ('13', commands.Move('13')),
     ('1000', commands.Move('1000')),
 ])

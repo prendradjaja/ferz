@@ -6,6 +6,6 @@ BLACK = 'Black'
 HELP_TEXT = '''
   Filter:                            Navigate:
     [h]uman opponent / [r]ated         [0] [e4] [-] [---] [/]
-    [d]ays / [w]eeks / [m]onths
+    [d]ays / [m]onths
     [t]ime control                   ? to hide help, ?? for more help
 '''[1:]

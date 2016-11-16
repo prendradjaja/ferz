@@ -45,8 +45,16 @@ def main(username, num_pages, output_path):
                           timestamp=datetime.now().strftime('%Y-%m-%d--%H-%M'))
     print()
     print('Dumping output to file: ' + output_path)
+
+    output = {
+        'games': games,
+        'metadata': {
+            'username': username,
+        },
+    }
+
     with open(output_path, 'w') as output_file:
-        json.dump(games, output_file)
+        json.dump(output, output_file)
 
 
 def partial_print(s):

@@ -101,6 +101,7 @@ class Store:
 def main_loop(_all_games):
     # TODO there's gotta be a better name.
 
+    # TODO username is initialized elsewhere
     Store.all_games = _all_games
     Store.using_filters = {
         filters.Date: filters.All(),
@@ -175,7 +176,9 @@ def main_loop(_all_games):
 
 def load_games(filename):
     with open(filename) as f:
-        games = [Game(g) for g in json.load(f)]
+        json_blob = json.load(f)
+    games = [Game(g) for g in json_blob['games']]
+    Store.username = json_blob['metadata']['username']
 
     # TODO maybe take some of this filtering out
 

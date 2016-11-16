@@ -128,8 +128,10 @@ def main_loop(_all_games):
         if commands.Root.isinstance(cmd):
             Store.path = []
         elif commands.Up.isinstance(cmd):
-            # TODO "already at top"
-            Store.path = Store.path[:-cmd.data.distance]
+            if Store.path == []:
+                Store.next_message = 'Already at root'
+            else:
+                Store.path = Store.path[:-cmd.data.distance]
         elif commands.Frequent.isinstance(cmd):
             # TODO handle index error
             rank = cmd.data.rank

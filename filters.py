@@ -29,6 +29,9 @@ class Date(Filter):
                   >= datetime.datetime.now() - g.createdAt)
         return list(filter(recent, games))
 
+    def __str__(self):
+        return 'Last {} days'.format(self.days)
+
     def __repr__(self):
         return 'DateFilter({})'.format(self.days)
 
@@ -50,3 +53,9 @@ class TimeControl(Filter):
 class Rated(Filter):
     def apply(self, games):
         return list(filter(lambda g: g.rated, games))
+
+    def __str__(self):
+        return 'Only rated games'
+
+    def __repr__(self):
+        return 'RatedFilter()'

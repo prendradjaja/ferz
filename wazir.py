@@ -76,6 +76,13 @@ def show():
                                     prettify_moves(Store.path)))
     print(header)
 
+    active_filters = [f for f in Store.using_filters.values() if f]
+    if active_filters:
+        # TODO sort
+        for each in active_filters:
+            print(each)
+        print()
+
     if Store.display_help:
         print(HELP_TEXT)
 

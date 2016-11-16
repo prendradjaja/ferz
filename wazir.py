@@ -11,6 +11,7 @@ from command_parser import parse
 import commands
 from table_display import format_table
 from constants import HELP_TEXT
+from utils import prettify_moves
 
 import argparse
 import json
@@ -70,9 +71,9 @@ def show():
 
     subtree_size = Store.node.size if Store.node else 0
 
-    header = ('D: {}'.format(len(Store.path)).ljust(7) +
-              ' N: {} / {}'.format(subtree_size, Store.num_games) +
-              '\n')
+    header = ('({}/{}) {}\n'.format(subtree_size,
+                                    Store.num_games,
+                                    prettify_moves(Store.path)))
     print(header)
 
     if Store.display_help:

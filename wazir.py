@@ -77,7 +77,7 @@ def show():
     if Store.node:
         Store.node.show()
     else:
-        print('nothing')
+        print('  No games found. Try changing filter settings or moving up the tree.')
 
 
 class Store:

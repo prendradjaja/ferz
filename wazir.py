@@ -66,8 +66,11 @@ def find_node(node, path):
 
 def show():
     print(Store.next_message + '\n')
-    header = ('D: {}'.format(Store.node.depth).ljust(7) +
-              ' N: {} / {}'.format(Store.node.size, Store.num_games) +
+
+    subtree_size = Store.node.size if Store.node else 0
+
+    header = ('D: {}'.format(len(Store.path)).ljust(7) +
+              ' N: {} / {}'.format(subtree_size, Store.num_games) +
               '\n')
     print(header)
 

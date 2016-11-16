@@ -64,29 +64,47 @@ def find_node(node, path):
     return node
 
 
-def show(node):
-    # TODO it's silly to have this and node.show()...
-    if node:
-        node.show()
+def show():
+    if Store.node:
+        Store.node.show()
     else:
         print('nothing')
 
 
-def main_loop(all_games):
+class Store:
+    """
+    all state here.
+    """
+
+    def __init__(self):
+        """
+        poor man's singleton.
+
+        maybe refactor to a better singleton later
+        """
+        raise Exception('do not initialize')
+
+def main_loop(_all_games):
     # TODO there's gotta be a better name.
-    using_filters = {
+
+    Store.all_games = _all_games
+    Store.using_filters = {
         filters.Date: filters.All(),
         filters.TimeControl: filters.All(),
         filters.Rated: filters.All(),
     }
-    path = []
+    Store.path = []
+    Store.node = None
+    Store.num_games = None
 
     os.system('clear')
     print('\n')
     cmd = None
     while True:
-        node, num_games = update_tree(all_games, using_filters, path)
-        show(node)
+        Store.node, Store.num_games = update_tree(Store.all_games,
+                                                  Store.using_filters,
+                                                  Store.path)
+        show()
         try:
             raw_cmd = input('\n> ')
         except (EOFError, KeyboardInterrupt):
@@ -108,27 +126,27 @@ def main_loop(all_games):
                 raise Exception('no last command')
 
         if commands.Root.isinstance(cmd):
-            path = []
+            Store.path = []
         elif commands.Up.isinstance(cmd):
             # TODO "already at top"
-            path = path[:-cmd.data.distance]
+            Store.path = Store.path[:-cmd.data.distance]
         elif commands.Frequent.isinstance(cmd):
             # TODO handle index error
             rank = cmd.data.rank
-            move = node.sorted_children[rank].move
-            path.append(move)
+            move = Store.node.sorted_children[rank].move
+            Store.path.append(move)
         elif commands.Days.isinstance(cmd):
-            using_filters[filters.Date] = filters.Date(cmd.data.days)
+            Store.using_filters[filters.Date] = filters.Date(cmd.data.days)
         elif commands.TimeControl.isinstance(cmd):
-            using_filters[filters.TimeControl] = \
+            Store.using_filters[filters.TimeControl] = \
                     filters.TimeControl(cmd.data.minutes)
         elif commands.Move.isinstance(cmd):
-            path.append(cmd.data.move)
+            Store.path.append(cmd.data.move)
         elif commands.Rated.isinstance(cmd):
-            if using_filters[filters.Rated]:
-                using_filters[filters.Rated] = filters.All()
+            if Store.using_filters[filters.Rated]:
+                Store.using_filters[filters.Rated] = filters.All()
             else:
-                using_filters[filters.Rated] = filters.Rated()
+                Store.using_filters[filters.Rated] = filters.Rated()
         else:
             raise Exception('command not implemented: ' + cmd.type)
 

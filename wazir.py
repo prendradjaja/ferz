@@ -159,7 +159,7 @@ def main_loop(_all_games):
             else:
                 Store.using_filters[filters.Rated] = filters.Rated()
         else:
-            raise Exception('command not implemented: ' + cmd.type)
+            Store.next_message = 'Command not implemented: ' + cmd.type
 
 
 def load_games(filename):

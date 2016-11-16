@@ -110,8 +110,8 @@ def main_loop(_all_games):
     Store.path = []
     Store.node = None
     Store.num_games = None
-    Store.next_message = ''
-    Store.display_help = True
+    Store.next_message = 'Welcome! Type ? for help.'
+    Store.display_help = False
 
     os.system('clear')
     cmd = None
@@ -168,11 +168,7 @@ def main_loop(_all_games):
             else:
                 Store.using_filters[filters.Rated] = filters.Rated()
         elif commands.Help.isinstance(cmd):
-            if Store.display_help:
-                Store.display_help = False
-                Store.next_message = 'Help hidden. Type ? to bring it back.'
-            else:
-                Store.display_help = True
+            Store.display_help = not Store.display_help
         else:
             Store.next_message = 'Command not implemented: ' + cmd.type
 

@@ -33,6 +33,7 @@ def _command_type(name, fields):
 # TODO documentation
 
 Repeat = _command_type('Repeat', '')
+NoOp = _command_type('NoOp', '')
 
 # navigating the tree
 Up = _command_type('Up', 'distance')

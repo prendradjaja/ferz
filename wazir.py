@@ -122,10 +122,12 @@ def main_loop(_all_games):
             if last_cmd:
                 cmd = last_cmd
             else:
-                # TODO fail more gracefully
-                raise Exception('no last command')
+                Store.next_message = 'No last command'
+                cmd = commands.NoOp()
 
-        if commands.Root.isinstance(cmd):
+        if commands.NoOp.isinstance(cmd):
+            pass
+        elif commands.Root.isinstance(cmd):
             Store.path = []
         elif commands.Up.isinstance(cmd):
             if Store.path == []:

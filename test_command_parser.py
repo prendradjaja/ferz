@@ -30,8 +30,6 @@ import pytest
     # but not 'd' itself
     ('7m', commands.Months(7)),
     ('77777m', commands.Months(77777)),
-    ('2y', commands.Years(2)),
-    ('100y', commands.Years(100)),
 
     # actual algebraic moves
     ('e4', commands.Move('e4')),
@@ -48,7 +46,6 @@ import pytest
     ('t', commands.Move('t')),
     ('d', commands.Move('d')),
     ('m', commands.Move('m')),
-    ('y', commands.Move('y')),
     ('13', commands.Move('13')),
     ('1000', commands.Move('1000')),
 ])

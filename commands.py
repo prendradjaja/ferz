@@ -46,7 +46,6 @@ Root = _command_type('Root', '')
 # filtering
 Days = _command_type('Days', 'days')
 Months = _command_type('Months', 'months')
-Years = _command_type('Years', 'years')
 Human = _command_type('Human', '')
 Rated = _command_type('Rated', '')
 TimeControl = _command_type('TimeControl', 'minutes')

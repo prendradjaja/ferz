@@ -9,7 +9,6 @@ import re
 _REGEX_UP   = re.compile('-+')
 _REGEX_DAYS = re.compile('(\d+)d')
 _REGEX_MONTHS = re.compile('(\d+)m')
-_REGEX_YEARS = re.compile('(\d+)y')
 _REGEX_TIME_CONTROL = re.compile('(\d+)t')
 
 
@@ -46,11 +45,6 @@ def parse(cmd):
         months_str = _REGEX_MONTHS.fullmatch(cmd).group(1)
         months = int(months_str)
         return commands.Months(months)
-
-    elif _REGEX_YEARS.fullmatch(cmd):
-        years_str = _REGEX_YEARS.fullmatch(cmd).group(1)
-        years = int(years_str)
-        return commands.Years(years)
 
     elif _REGEX_TIME_CONTROL.fullmatch(cmd):
         minutes_str = _REGEX_TIME_CONTROL.fullmatch(cmd).group(1)

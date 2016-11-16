@@ -129,14 +129,16 @@ def main_loop(_all_games):
             Store.path = []
         elif commands.Up.isinstance(cmd):
             if Store.path == []:
-                Store.next_message = 'Already at root'
+                Store.next_message = 'Already at root'  # TODO better message?
             else:
                 Store.path = Store.path[:-cmd.data.distance]
         elif commands.Frequent.isinstance(cmd):
-            # TODO handle index error
             rank = cmd.data.rank
-            move = Store.node.sorted_children[rank].move
-            Store.path.append(move)
+            try:
+                move = Store.node.sorted_children[rank].move
+                Store.path.append(move)
+            except IndexError:
+                Store.next_message = 'IndexError'  # TODO better message?
         elif commands.Days.isinstance(cmd):
             Store.using_filters[filters.Date] = filters.Date(cmd.data.days)
         elif commands.TimeControl.isinstance(cmd):

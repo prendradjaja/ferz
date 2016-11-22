@@ -12,7 +12,7 @@ _REGEX_MONTHS = re.compile('(\d+)m')
 _REGEX_TIME_CONTROL = re.compile('(\d+)t')
 
 
-def parse(cmd):
+def parse(cmd: str):
     if cmd == '':
         return commands.Repeat()
 

@@ -3,6 +3,8 @@ import datetime
 from constants import STOCKFISH, WHITE, BLACK
 from utils import readable
 
+from typing import Dict
+
 class Game:
     """
     Wrapper for the lichess API representation of one single game, extracted from the results of the
@@ -14,7 +16,7 @@ class Game:
     # These attributes can be used with dot notation, e.g. game.speed == game['speed']
     ALLOWED_ATTRS = ['id', 'speed', 'rated', 'variant']
 
-    def __init__(self, game_dict):
+    def __init__(self, game_dict: Dict) -> None:
         """
         game_dict: lichess API representation of a single game, parsed from JSON into a Python dict
         """

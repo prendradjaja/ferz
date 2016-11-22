@@ -1,4 +1,6 @@
-def _transpose(matrix):
+from typing import List
+
+def _transpose(matrix: List[List]) -> List[List]:
     return list(map(list, zip(*matrix)))
 
 def _multi_compose(functions, x):

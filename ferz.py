@@ -9,7 +9,7 @@ LICHESS_URL = 'https://en.lichess.org'
 PAGE_SIZE = 100
 
 
-def main(username, num_pages, output_path):
+def main(username: str, num_pages: int, output_path: str):
     games = []
 
     # TODO is it bad to use my own page enumeration despite the API having a 'nextPage'?
@@ -57,11 +57,11 @@ def main(username, num_pages, output_path):
         json.dump(output, output_file)
 
 
-def partial_print(s):
+def partial_print(s: str) -> None:
     print(s, end='', flush=True)
 
 
-def readable_date(unix_time_ms):
+def readable_date(unix_time_ms: int) -> str:
     return datetime.fromtimestamp(unix_time_ms/1000).strftime('%b %d %Y at %H:%M')
 
 

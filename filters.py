@@ -1,15 +1,18 @@
 import datetime
 
+from game import Game
+from typing import List
+
 
 # TODO how do i make sure you actually subclass Filter?
 # TODO maybe rename to _Filter?
 class Filter:
-    def apply(self, games):
+    def apply(self, games: List[Game]) -> List[Game]:
         raise Exception('not implemented')
 
 
 class All(Filter):
-    def apply(self, games):
+    def apply(self, games: List[Game]) -> List[Game]:
         return games
 
     def __bool__(self):
@@ -20,10 +23,10 @@ class All(Filter):
 
 
 class Date(Filter):
-    def __init__(self, days):
+    def __init__(self, days: int) -> None:
         self.days = days
 
-    def apply(self, games):
+    def apply(self, games: List[Game]) -> List[Game]:
         recent = (lambda g:
                   datetime.timedelta(self.days)
                   >= datetime.datetime.now() - g.createdAt)
@@ -38,10 +41,10 @@ class Date(Filter):
 
 # TODO "less than" -- this only does "greater than"
 class TimeControl(Filter):
-    def __init__(self, minutes):
+    def __init__(self, minutes: int) -> None:
         self.minutes = minutes
 
-    def apply(self, games):
+    def apply(self, games: List[Game]) -> List[Game]:
         # + 0.0001 because floating point.
         return list(filter(lambda g: g.time + 0.0001 >= self.minutes,
                            games))
@@ -51,7 +54,7 @@ class TimeControl(Filter):
 
 
 class Rated(Filter):
-    def apply(self, games):
+    def apply(self, games: List[Game]) -> List[Game]:
         return list(filter(lambda g: g.rated, games))
 
     def __str__(self):
